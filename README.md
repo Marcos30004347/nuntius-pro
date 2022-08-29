@@ -5,7 +5,9 @@ Um aplicativo de chat em tempo real feito em node js.
 
 ## Membros e papeis
 Luiz Felipe Couto - FullStack development and design
+
 Marcos Vinicius - FullStack development and design
+
 Vinicius Juliao Ramos - FullStack development and design
 
 ## Principais Features e objetivos (WIP)
