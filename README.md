@@ -50,11 +50,11 @@ Wesley Raul Santos Vieira - FullStack development and design
    * Criar uma notação, por exemplo um caractere "!" no início da mensagem para identificar que é uma mensagem anonima.
    * No frontend, exibir a mensagem anônima com estilo diferente das demais.
    * Criar a rotina no backend para retransmissão annima das mensagens.
-9.  Como usuário, eu quero mandar mensagens privadas.
+9. Como usuário, eu quero mandar mensagens privadas.
    * Criar uma notação, por exemplo um caractere "@"+<nome do usuário> para identificar para quem a mensagem será enviada privativamente.
    * No frontend, exibir a mensagem privada com estilo diferente das demais. Isto é, criar uma estrutura de exibição da mensagem privada.
    * Criar uma rotina no backend que garanta que apenas o usuário alvo conseguirá ler a mensagem privada.
-10. Como usuário, eu quero poder responder uma mensagem de maneira explícita.
+1. Como usuário, eu quero poder responder uma mensagem de maneira explícita.
    * No frontend, exibir a mensagem de resposta de maneira diferente das demais, com um estilo próprio.
 
 
