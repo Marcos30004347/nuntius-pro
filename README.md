@@ -54,7 +54,7 @@ Wesley Raul Santos Vieira - FullStack development and design
    * Criar uma notação, por exemplo um caractere "@"+<nome do usuário> para identificar para quem a mensagem será enviada privativamente.
    * No frontend, exibir a mensagem privada com estilo diferente das demais. Isto é, criar uma estrutura de exibição da mensagem privada.
    * Criar uma rotina no backend que garanta que apenas o usuário alvo conseguirá ler a mensagem privada.
-11. Como usuário, eu quero poder responder uma mensagem de maneira explícita.
+10. Como usuário, eu quero poder responder uma mensagem de maneira explícita.
    * No frontend, exibir a mensagem de resposta de maneira diferente das demais, com um estilo próprio.
 
 
