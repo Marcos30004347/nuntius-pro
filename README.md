@@ -76,9 +76,8 @@ Wesley Raul Santos Vieira - FullStack development and design
 
 [Figma](https://www.figma.com/file/sVDkQN4y72q4OGmWK71KOU/Nuntius?node-id=2604%3A2264)
 
-## Sprint 1
+## Proxima Sprint
 
-1. Tarefas técnicas.
 2. Como usuário, eu quero logar na aplicação.
 3. Como usuário, eu quero criar uma conta.
 4. Como usuário, eu quero entrar numa sala de chat.
