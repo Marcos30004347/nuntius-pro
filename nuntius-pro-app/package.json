@@ -18,7 +18,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "yarn prettier --write .",
-    "lint": "eslint './src/**/*.{js,jsx}' './test/**/*.{js,jsx}' --quiet"
+    "lint": "eslint './src/**/*.{js,jsx}' --quiet",
+    "prepare": "cd .. && husky install nuntius-pro-app/.husky"
   },
   "eslintConfig": {
     "extends": [
@@ -44,6 +45,12 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-react": "^7.31.8",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "prettier": "2.7.1"
+  },
+  "lint-staged": {
+    "*.{js, jsx}": "yarn lint",
+    "*.{js,jsx,html,json}": "yarn format"
   }
 }
