@@ -6,10 +6,10 @@ Um aplicativo de chat em tempo real feito em node js.
 
 ## Membros e papeis
 
-Aline Cristina Pinto - FullStack development and design
-Luiz Felipe Couto - FullStack development and design
-Marcos Vinicius - FullStack development and design
-Vinicius Juliao Ramos - FullStack development and design
+Aline Cristina Pinto - FullStack development and design\
+Luiz Felipe Couto - FullStack development and design\
+Marcos Vinicius - FullStack development and design\
+Vinicius Juliao Ramos - FullStack development and design\
 Wesley Raul Santos Vieira - FullStack development and design
 
 ## Principais Features e objetivos
@@ -47,7 +47,7 @@ Wesley Raul Santos Vieira - FullStack development and design
    - Implementar o reprodutor de áudio. - Vinicius
    - Implementar envio de áudio na direção cliente -> servidor - Wesley
    - Implementar envio de audio na direção servidor -> cliente. - Wesley
-8. Como usuário, eu quero mandar emnsagens anonimas.
+8. Como usuário, eu quero mandar mensagens anonimas.
    - Criar uma notação, por exemplo um caractere "!" no início da mensagem para identificar que é uma mensagem anonima. - Luiz
    - No frontend, exibir a mensagem anônima com estilo diferente das demais. - Aline
    - Criar a rotina no backend para retransmissão anônima das mensagens. - Vinicius
