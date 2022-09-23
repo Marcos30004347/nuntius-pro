@@ -4,7 +4,6 @@ function App() {
   return (
     <>
       <GlobalStyles />
-
       <h1>Nuntius</h1>
     </>
   );
