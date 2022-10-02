@@ -1,10 +1,11 @@
 import { GlobalStyles } from './GlobalStyles';
+import { NavGlobal } from './design-system/components/Navigation';
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <h1>Nuntius</h1>
+      <NavGlobal />
     </>
   );
 }

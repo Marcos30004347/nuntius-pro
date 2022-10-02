@@ -10,7 +10,8 @@ module.exports = {
     'react/prop-types': 'off',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
-    'react/self-closing-comp': 'warn'
+    'react/self-closing-comp': 'warn',
+    'import/no-named-as-default': 'off'
   },
   plugins: ['react', 'import', 'jsx-a11y'],
   parserOptions: {
