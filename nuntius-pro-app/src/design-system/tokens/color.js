@@ -5,6 +5,7 @@ export const Color = {
   Neutral600: '#4B5563',
   Neutral900: '#0F172A',
 
+  Brand400: '#818CF8',
   Brand700: '#4338CA',
 
   Rose600: '#E11D48'
