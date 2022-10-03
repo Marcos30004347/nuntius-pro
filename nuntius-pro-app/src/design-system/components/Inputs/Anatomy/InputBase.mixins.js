@@ -33,5 +33,5 @@ export const activeMixin = css`
 
 export const errorMixin = css`
   ${borderMixin({ color: Color.Rose600 })}
-  ${placeholderMixin({ color: Color.Neutral100 })}
+  ${placeholderMixin({ color: Color.Neutral400 })}
 `;
