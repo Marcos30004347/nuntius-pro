@@ -1,5 +1,9 @@
-import { InputBase } from '../Anatomy/InputBase';
+import { InputBase, InputContainer } from '../Anatomy';
 
 export const InputText = ({ error = false, ...props }) => {
-  return <InputBase {...props} type="text" error={error} />;
+  return (
+    <InputContainer aria-invalid={error}>
+      <InputBase {...props} type="text" error={error} />
+    </InputContainer>
+  );
 };

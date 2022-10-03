@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { BorderRadius, Spacing } from '../../../tokens';
-import { activeMixin, enabledMixin, errorMixin } from './InputBase.mixins';
+import { activeMixin, enabledMixin, errorMixin } from './InputAnatomy.mixins';
 
 export const Container = styled.div`
   box-sizing: border-box;

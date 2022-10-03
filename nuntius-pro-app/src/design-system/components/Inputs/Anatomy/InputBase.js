@@ -1,10 +1,5 @@
-import { Container, Input } from './InputBase.styles';
+import { Input } from './InputAnatomy.styles';
 
 export const InputBase = ({ name, error, endAdornment, ...props }) => {
-  return (
-    <Container aria-invalid={error}>
-      <Input {...props} id={name} name={name} />
-      {endAdornment}
-    </Container>
-  );
+  return <Input {...props} id={name} name={name} />;
 };
