@@ -1,5 +1,7 @@
 export * from './color';
 export * from './container';
+export * from './borderRadius';
+export * from './borderWidth';
 export * from './boxShadow';
 export * from './breakpoints';
 export * from './fontWeights';
