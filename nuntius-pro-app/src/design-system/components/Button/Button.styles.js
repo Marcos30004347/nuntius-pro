@@ -14,7 +14,7 @@ export const Container = styled.button`
   align-items: center;
   justify-content: center;
   border: ${BorderWidth.None};
-  width: fit-content;
+  width: 100%;
   font-size: ${Sizing.UltraSmall};
   font-weight: ${FontWeights.Bold};
   border-radius: ${BorderRadius.Small};
