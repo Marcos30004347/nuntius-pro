@@ -4,11 +4,12 @@ import {
   BorderWidth,
   Color,
   FontWeights,
-  Sizing
+  Sizing,
+  Spacing
 } from '../../tokens';
 import { ButtonSizeMixin, ButtonStateMixin } from './Button.mixins';
 
-export const CustomButton = styled.button`
+export const Container = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,6 +18,7 @@ export const CustomButton = styled.button`
   font-size: ${Sizing.UltraSmall};
   font-weight: ${FontWeights.Bold};
   border-radius: ${BorderRadius.Small};
+  gap: ${Spacing.Nano};
 
   &:focus,
   &:focus-visible {

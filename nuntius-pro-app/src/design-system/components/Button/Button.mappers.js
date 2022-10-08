@@ -52,3 +52,18 @@ export const ButtonColors = {
     }
   }
 };
+
+export const IconColor = {
+  primary: {
+    enabled: Color.White,
+    disabled: Color.Neutral400
+  },
+  secondary: {
+    enabled: Color.Neutral900,
+    disabled: Color.Neutral400
+  },
+  tertiary: {
+    enabled: Color.Neutral600,
+    disabled: Color.Neutral400
+  }
+};
