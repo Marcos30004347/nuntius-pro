@@ -1,7 +1,9 @@
+import { PageWrapper } from '../../../../../shared/ui/components/PageWrapper';
+
 export const Home = () => {
   return (
-    <div>
+    <PageWrapper>
       <p>Hello World!</p>
-    </div>
+    </PageWrapper>
   );
 };
