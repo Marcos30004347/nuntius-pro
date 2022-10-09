@@ -21,11 +21,6 @@ io.on("connection", (socket) => {
   console.log("user connected");
 });
 
-// socket.on('greeting-from-server', function (message) {
-//   document.body.appendChild(
-//       document.createTextNode(message.greeting)
-//   );
-
 server.listen(port, () => {
   console.log(`app is running on port ${port}`);
 });
