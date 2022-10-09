@@ -1,5 +1,8 @@
-import { Router } from 'express'
+import { Router } from "express";
+import { createAccount } from "./controllers/auth.js";
 
-const routes = Router()
+const routes = Router();
 
-export { routes }
+routes.post("/auth/signup", createAccount);
+
+export default routes;
