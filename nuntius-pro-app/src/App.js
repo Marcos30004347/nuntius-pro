@@ -7,8 +7,8 @@ const App = () => {
   return (
     <>
       <GlobalStyles />
-      <NavGlobal />
       <BrowserRouter>
+        <NavGlobal />
         <Routes>
           {authenticatedRoutes.map((route) => (
             <Route key={route.path} {...route} />
