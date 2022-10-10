@@ -14,13 +14,13 @@ export const Home = () => {
         </Typography>
         <FormWrapper>
           <InputGroup label="Entrar em uma sala" htmlFor="entrar">
-            <InputText placeholder="Nome da sala" ame="entrar" />
+            <InputText placeholder="Nome da sala" name="entrar" />
           </InputGroup>
           <Button variant="primary">Entrar</Button>
         </FormWrapper>
         <FormWrapper>
           <InputGroup label="Criar uma sala" htmlFor="criar">
-            <InputText placeholder="Nome da sala" />
+            <InputText placeholder="Nome da sala" name="criar" />
           </InputGroup>
           <Button variant="primary">Criar</Button>
         </FormWrapper>
