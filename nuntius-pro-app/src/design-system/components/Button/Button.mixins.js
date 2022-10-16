@@ -14,6 +14,7 @@ export const ButtonStateMixin = css`
   ${({ variant }) => stateMixin({ variant, state: 'enabled' })};
 
   :hover {
+    cursor: pointer;
     ${({ variant }) => stateMixin({ variant, state: 'hovered' })};
   }
 

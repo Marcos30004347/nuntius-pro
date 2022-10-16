@@ -3,11 +3,13 @@ import { ItemsWrapper, Navigation } from './NavGlobal.styles';
 import { Typography } from '../Typography';
 
 // TODO: add src to Avatar and link to home in the heading
-export const NavGlobal = () => {
+export const NavGlobal = ({ homeRoute }) => {
   return (
     <Navigation role="navigation">
       <ItemsWrapper>
-        <Typography variant="heading2">NUNTIUS</Typography>
+        <a href={homeRoute} style={{ textDecoration: 'none' }}>
+          <Typography variant="heading2">NUNTIUS</Typography>
+        </a>
         <Avatar size="small" />
       </ItemsWrapper>
     </Navigation>
