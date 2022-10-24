@@ -13,8 +13,10 @@ const signup = async (email, username, password) => {
         },
       },
     });
+		
     if (error) throw error;
-    console.log(data);
+
+		console.log(data)
     return {
       accessToken: data?.session?.access_token,
       refreshToken: data?.session?.refresh_token,
@@ -26,4 +28,27 @@ const signup = async (email, username, password) => {
   }
 };
 
-export { signup };
+const signin = async (email, password) => {
+  try {
+    const supabase = getDBClient();
+
+    const { data, error } = await supabase.auth.signIn({
+      email: email,
+      password: password,
+    });
+		
+    if (error) throw error;
+		console.log(data)
+    return {
+      accessToken: data.access_token,
+      refreshToken: data.refresh_token,
+      expiresAt: data.expires_at,
+    };
+  } catch (e) {
+    console.log(e);
+    throw new Error(`error when creting new user with name "${username}"`);
+  }
+};
+
+
+export { signup, signin };
