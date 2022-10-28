@@ -6,9 +6,9 @@ import {
 import { InputGroup } from '../../../../../design-system/components/FormGroup/InputGroup';
 import { Typography } from '../../../../../design-system/components/Typography';
 import { PageWrapper } from '../../../../../shared/ui/components/PageWrapper';
-import { Container, FormWrapper } from './SingUp.styles';
+import { Container, FormWrapper } from './Login.styles';
 
-export const SingUp = () => {
+export const Login = () => {
   return (
     <PageWrapper>
       <Container>

@@ -1,5 +1,5 @@
 import { Home } from '../ui/screens/home';
-import { SingUp } from '../ui/screens/singUp';
+import { Login } from '../ui/screens/login';
 import { messagesPageRoutes } from '../application/routes';
 
 export const messagesRoutes = [
@@ -9,8 +9,8 @@ export const messagesRoutes = [
     element: <Home />
   },
   {
-    path: messagesPageRoutes.SINGUP,
+    path: messagesPageRoutes.LOGIN,
     exact: true,
-    element: <SingUp />
+    element: <Login />
   }
 ];
