@@ -1,3 +1,4 @@
 export const messagesPageRoutes = {
-  HOME: '/home'
+  HOME: '/home',
+  SINGUP: '/sing-up'
 };
