@@ -21,6 +21,7 @@ const signup = async (email, username, password) => {
       accessToken: data?.session?.access_token,
       refreshToken: data?.session?.refresh_token,
       expiresAt: data?.session?.expires_at,
+      expiresAt: data?.session?.user.id
     };
   } catch (e) {
     console.log(e);

@@ -2,7 +2,7 @@ import { signup, signin } from "../services/auth.js";
 
 const signupHandler = async (request, response) => {
   try {
-    const { email, username, password } = request.body;
+    const { email, username, password } = request.body.data;
     const resp = await signup(email, username, password);
     return response.json(resp);
   } catch (e) {
@@ -13,7 +13,7 @@ const signupHandler = async (request, response) => {
 
 const signinHandler = async (request, response) => {
   try {
-    const { email, password } = request.body;
+    const { email, password } = request.body.data;
     const resp = await signin(email, password);
     return response.json(resp);
   } catch (e) {
