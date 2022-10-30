@@ -1,6 +1,6 @@
-import { signup } from "../services/auth.js";
+import { signup, signin } from "../services/auth.js";
 
-const createAccount = async (request, response) => {
+const signupHandler = async (request, response) => {
   try {
     const { email, username, password } = request.body;
     const resp = await signup(email, username, password);
@@ -11,4 +11,16 @@ const createAccount = async (request, response) => {
   }
 };
 
-export { createAccount };
+const signinHandler = async (request, response) => {
+  try {
+    const { email, password } = request.body;
+    const resp = await signin(email, password);
+    return response.json(resp);
+  } catch (e) {
+    console.error(e);
+    return response.status(400).json(e);
+  }
+};
+
+
+export { signupHandler, signinHandler };
