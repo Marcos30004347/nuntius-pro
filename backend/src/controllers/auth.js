@@ -2,8 +2,9 @@ import { signup, signin } from "../services/auth.js";
 
 const signupHandler = async (request, response) => {
   try {
-    const { email, username, password } = request.body.data;
-    const resp = await signup(email, username, password);
+    const { email, username, password, image_base64 } = request.body.data;
+    const resp = await signup(email, username, password, image_base64);
+		
     return response.json(resp);
   } catch (e) {
     console.error(e);

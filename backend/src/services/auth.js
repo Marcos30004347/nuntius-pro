@@ -1,6 +1,7 @@
 import { getDBClient } from "../database/init.js";
+import { uploadUserPicture } from "./user.js";
 
-const signup = async (email, username, password) => {
+const signup = async (email, username, password, image_base64) => {
   try {
     const supabase = getDBClient();
 
@@ -17,7 +18,10 @@ const signup = async (email, username, password) => {
     if (error) throw error;
 
 		console.log(data)
-    return {
+
+		uploadUserPicture(data?.session?.access_token, image_base64);
+
+		return {
       accessToken: data?.session?.access_token,
       refreshToken: data?.session?.refresh_token,
       expiresAt: data?.session?.expires_at,
