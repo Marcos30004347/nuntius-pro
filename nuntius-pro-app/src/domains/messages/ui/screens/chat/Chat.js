@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { PageWrapper } from '../../../../../shared/ui/components/PageWrapper';
 import io from 'socket.io-client';
+import { Container } from './Chat.styles';
 
 const BACKEND_URL = 'http://localhost:8000';
 const ROOM = 'MyAwesomeRoom';
@@ -29,25 +30,25 @@ export const Chat = () => {
 
   return (
     <PageWrapper style={{ flexDirection: 'column' }}>
-      <div style={{ height: '100%', width: '100%' }}>Hello From Chat!</div>
+      <Container>
+        <div>
+          {messages.map((msg, idx) => {
+            return (
+              <div key={idx}>
+                <span>{`${msg.username}: ${msg.value}`}</span>
+              </div>
+            );
+          })}
+        </div>
 
-      <div>
-        {messages.map((msg, idx) => {
-          return (
-            <div key={idx}>
-              <span>{`${msg.username}: ${msg.value}`}</span>
-            </div>
-          );
-        })}
-      </div>
-
-      <button
-        onClick={() => {
-          socket.emit('message', 'my message');
-        }}
-      >
-        Click me!
-      </button>
+        <button
+          onClick={() => {
+            socket.emit('message', 'my message');
+          }}
+        >
+          Click me!
+        </button>
+      </Container>
     </PageWrapper>
   );
 };
