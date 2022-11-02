@@ -24,10 +24,10 @@ export const registerSocketConn = (server) => {
   if (!io) io = new Server(server, { cors: { origin: "*" } });
 
   io.on("connection", (socket) => {
-    console.log("user connected: ", socket.id);
-
     socket.data.room = socket.handshake.query.room;
     socket.data.username = socket.handshake.query.username;
+
+    console.log("user connected: ", socket.data.username);
 
     socket.join(socket.data.room);
     socket.on("message", (msg) => onSimpleMessage(socket, msg));
