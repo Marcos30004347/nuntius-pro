@@ -4,7 +4,9 @@ import io from 'socket.io-client';
 
 const BACKEND_URL = 'http://localhost:8000';
 const ROOM = 'MyAwesomeRoom';
-const USERNAME = 'MyUser';
+
+// generate a random username just for tests
+const USERNAME = (Math.random() + 1).toString(36).substring(7);
 
 export const Chat = () => {
   const [socket, setSocket] = useState(undefined);
