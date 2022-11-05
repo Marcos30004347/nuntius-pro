@@ -5,7 +5,8 @@ import {
   heading2Mixin,
   heading3Mixin,
   paragraphRegular,
-  paragraphBold
+  paragraphBold,
+  spanRegular
 } from './Typography.mixins';
 
 const Base = styled.span`
@@ -33,4 +34,8 @@ export const ParagraphRegular = styled(Base).attrs({ as: 'p' })`
 
 export const ParagraphBold = styled(Base).attrs({ as: 'p' })`
   ${paragraphBold}
+`;
+
+export const SpanRegular = styled(Base).attrs({ as: 'span' })`
+  ${spanRegular}
 `;
