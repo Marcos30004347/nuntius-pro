@@ -16,13 +16,13 @@ export const ParticipantsListDrawer = ({ isOpen, close, participants }) => {
     >
       <Container>
         <TitleHolder>
-          <Icon icon={Icons.Eye} variant="solid" />
+          <Icon icon={Icons.UerGroup} variant="solid" />
           <Typography variant="paragraphBold">Pessoas na sala</Typography>
         </TitleHolder>
-        {participants.map((participant, idx) => {
+        {participants.map((participant, index) => {
           return (
             <>
-              <ParticipantItem key={idx} name={participant.name} />
+              <ParticipantItem key={index} name={participant.name} />
               <Divider />
             </>
           );
