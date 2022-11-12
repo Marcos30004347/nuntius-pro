@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { PageWrapper } from '../../../../../shared/ui/components/PageWrapper';
+import { Wrapper } from '../../../../../shared/ui/components/Wrapper';
 import io from 'socket.io-client';
-import { Container } from './Chat.styles';
+import { Container } from './Chat1.styles';
 
 const BACKEND_URL = 'http://localhost:8000';
 const ROOM = 'MyAwesomeRoom';
@@ -29,7 +29,7 @@ export const Chat = () => {
   }, []);
 
   return (
-    <PageWrapper style={{ flexDirection: 'column' }}>
+    <Wrapper style={{ flexDirection: 'column' }}>
       <Container>
         <div>
           {messages.map((msg, idx) => {
@@ -49,6 +49,6 @@ export const Chat = () => {
           Click me!
         </button>
       </Container>
-    </PageWrapper>
+    </Wrapper>
   );
 };
