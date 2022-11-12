@@ -1,5 +1,6 @@
 export const messagesPageRoutes = {
   HOME: '/home',
   LOGIN: '/',
-  CHAT: '/chat'
+  CHAT: '/chat',
+  ROOM: '/room'
 };

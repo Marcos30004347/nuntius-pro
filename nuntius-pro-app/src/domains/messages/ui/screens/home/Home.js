@@ -2,12 +2,12 @@ import { Button } from '../../../../../design-system/components/Button';
 import { InputText } from '../../../../../design-system/components/Inputs';
 import { InputGroup } from '../../../../../design-system/components/FormGroup/InputGroup';
 import { Typography } from '../../../../../design-system/components/Typography';
-import { PageWrapper } from '../../../../../shared/ui/components/PageWrapper';
+import { PrivatePage } from '../../../../../shared/ui/components/PrivatePage';
 import { Container, FormWrapper } from './Home.styles';
 
 export const Home = () => {
   return (
-    <PageWrapper>
+    <PrivatePage>
       <Container>
         <Typography variant="heading1" textAlign="center">
           NUNTIUS
@@ -25,6 +25,6 @@ export const Home = () => {
           <Button variant="primary">Criar</Button>
         </FormWrapper>
       </Container>
-    </PageWrapper>
+    </PrivatePage>
   );
 };

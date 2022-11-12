@@ -5,13 +5,13 @@ import {
 } from '../../../../../design-system/components/Inputs';
 import { InputGroup } from '../../../../../design-system/components/FormGroup/InputGroup';
 import { Typography } from '../../../../../design-system/components/Typography';
-import { PageWrapper } from '../../../../../shared/ui/components/PageWrapper';
+import { Wrapper } from '../../../../../shared/ui/components/Wrapper';
 import { Container, FormWrapper } from './Login.styles';
 import { HyperLink } from '../../../../../design-system/components/HyperLink';
 
 export const Login = () => {
   return (
-    <PageWrapper>
+    <Wrapper>
       <Container>
         <Typography variant="heading1" textAlign="center">
           NUNTIUS
@@ -33,6 +33,6 @@ export const Login = () => {
         </Typography>
         <HyperLink text={'Esqueci a Senha'} route={'/home'} />
       </Container>
-    </PageWrapper>
+    </Wrapper>
   );
 };
