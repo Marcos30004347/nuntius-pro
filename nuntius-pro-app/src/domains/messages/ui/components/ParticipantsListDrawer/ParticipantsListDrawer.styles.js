@@ -4,15 +4,12 @@ import { Spacing } from '../../../../../design-system/tokens';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
-  margin-top: ${Spacing.Large};
-  gap: ${Spacing.SuperSmall};
+  padding: ${Spacing.SuperSmall};
+  gap: ${Spacing.UltraSmall};
 `;
 
-export const FormWrapper = styled.div`
+export const TitleHolder = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 60%;
-  gap: ${Spacing.Micro};
+  gap: ${Spacing.UltraSmall};
+  margin-bottom: ${Spacing.UltraSmall};
 `;
