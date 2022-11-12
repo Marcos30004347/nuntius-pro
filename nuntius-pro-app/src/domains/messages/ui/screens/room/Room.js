@@ -1,13 +1,9 @@
-import * as React from 'react';
 import { PrivatePage } from '../../../../../shared/ui/components/PrivatePage';
 import { ParticipantsListDrawer } from '../../components/ParticipantsListDrawer';
+import { useParticipantsList } from '../../../application/hooks/useParticipantsList';
 
 export const Room = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const toggleDrawer = () => {
-    setIsOpen((prevState) => !prevState);
-  };
-  const participants = [{ name: 'Aline' }, { name: 'Luiz' }];
+  const { isOpen, toggleDrawer, participants } = useParticipantsList();
 
   return (
     <PrivatePage>
