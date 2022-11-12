@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import 'react-modern-drawer/dist/index.css';
 
 export const GlobalStyles = createGlobalStyle`
   html {
