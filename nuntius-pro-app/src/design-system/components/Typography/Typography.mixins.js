@@ -53,3 +53,12 @@ export const paragraphBold = mixin(
   },
   { fontSize: Sizing.HyperSmall, lineHeight: Sizing.HyperSmall }
 );
+
+export const spanRegular = mixin(
+  {
+    fontSize: Sizing.UltraSmall,
+    fontWeight: FontWeights.Regular,
+    lineHeight: Sizing.UltraSmall
+  },
+  { fontSize: Sizing.HyperSmall, lineHeight: Sizing.HyperSmall }
+);
