@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import 'react-modern-drawer/dist/index.css';
+import 'react-chat-elements/dist/main.css';
 
 export const GlobalStyles = createGlobalStyle`
   html {
