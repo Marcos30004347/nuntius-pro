@@ -38,7 +38,7 @@ export const ChatContainer = () => {
         />
       </ChatHolder>
       <ActionHolder>
-        <InputText placeholder="Type here..." multiline={true} />
+        <InputText placeholder="Digite uma mensagem" multiline={true} />
         <Button style={{ width: '10%' }} icon={Icons.PaperAirplane} />
       </ActionHolder>
     </>
