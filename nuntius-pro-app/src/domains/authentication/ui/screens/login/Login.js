@@ -5,12 +5,13 @@ import {
 } from '../../../../../design-system/components/Inputs';
 import { InputGroup } from '../../../../../design-system/components/FormGroup/InputGroup';
 import { Typography } from '../../../../../design-system/components/Typography';
-import { PageWrapper } from '../../../../../shared/ui/components/PageWrapper';
+import { Wrapper } from '../../../../../shared/ui/components/Wrapper';
 import { Container, FormWrapper } from './Login.styles';
+import { HyperLink } from '../../../../../design-system/components/HyperLink';
 
 export const Login = () => {
   return (
-    <PageWrapper>
+    <Wrapper>
       <Container>
         <Typography variant="heading1" textAlign="center">
           NUNTIUS
@@ -26,11 +27,12 @@ export const Login = () => {
             <Button variant="primary">Entrar</Button>
           </InputGroup>
         </FormWrapper>
-        <Typography variant="paragraphRegular">
-          Ainda não possuo cadastro. Cadastrar
+        <Typography variant="paragraphRegular" textAlign="center">
+          Ainda não possuo cadastro.{' '}
+          <HyperLink text={'Cadastrar'} route={'/home'} />
         </Typography>
-        <Typography variant="paragraphRegular">Esqueci a senha</Typography>
+        <HyperLink text={'Esqueci a Senha'} route={'/home'} />
       </Container>
-    </PageWrapper>
+    </Wrapper>
   );
 };

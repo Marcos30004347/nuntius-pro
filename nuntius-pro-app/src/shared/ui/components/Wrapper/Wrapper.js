@@ -5,7 +5,7 @@ import {
   Spacing
 } from '../../../../design-system/tokens';
 
-export const PageWrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: ${Spacing.None};

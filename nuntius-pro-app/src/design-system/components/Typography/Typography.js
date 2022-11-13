@@ -4,7 +4,8 @@ import {
   Heading2,
   Heading3,
   ParagraphRegular,
-  ParagraphBold
+  ParagraphBold,
+  SpanRegular
 } from './Typography.styles';
 
 const typographyVariantMap = {
@@ -12,7 +13,8 @@ const typographyVariantMap = {
   heading2: Heading2,
   heading3: Heading3,
   paragraphRegular: ParagraphRegular,
-  paragraphBold: ParagraphBold
+  paragraphBold: ParagraphBold,
+  spanRegular: SpanRegular
 };
 
 export const Typography = ({
@@ -43,6 +45,7 @@ Typography.propTypes = {
     'heading2',
     'heading3',
     'paragraphRegular',
-    'paragraphBold'
+    'paragraphBold',
+    'spanRegular'
   ])
 };

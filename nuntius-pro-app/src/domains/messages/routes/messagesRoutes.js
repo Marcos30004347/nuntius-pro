@@ -1,6 +1,7 @@
 import { Home } from '../ui/screens/home';
-import { Login } from '../ui/screens/login';
 import { messagesPageRoutes } from '../application/routes';
+import { Chat } from '../ui/screens/chat';
+import { Room } from '../ui/screens/room';
 
 export const messagesRoutes = [
   {
@@ -9,8 +10,13 @@ export const messagesRoutes = [
     element: <Home />
   },
   {
-    path: messagesPageRoutes.LOGIN,
+    path: messagesPageRoutes.ROOM,
     exact: true,
-    element: <Login />
+    element: <Room />
+  },
+  {
+    path: messagesPageRoutes.CHAT,
+    exact: true,
+    element: <Chat />
   }
 ];
