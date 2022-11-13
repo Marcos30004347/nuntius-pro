@@ -6,7 +6,6 @@ const authCheckerMiddleware = async (request, response, next) => {
   try {
     const url = request.baseUrl + request.path;
     if(url in unauthenticatedRoutes){
-      console.log("PASSING");
       next();
       return;
     }
@@ -18,10 +17,9 @@ const authCheckerMiddleware = async (request, response, next) => {
     if (error) throw error;
     request.body.user = user;
 
-    console.log(data)
     next();
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return response.status(400).json(`Invalid access token`);
   }
 }
