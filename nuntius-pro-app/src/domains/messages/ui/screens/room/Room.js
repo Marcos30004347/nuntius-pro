@@ -4,7 +4,6 @@ import { ParticipantsListDrawer } from '../../components/ParticipantsListDrawer'
 import { useParticipantsList } from '../../../application/hooks/useParticipantsList';
 import { Header } from '../../components/Header';
 import { ChatContainer } from '../../components/ChatContainer';
-// import { Spacing } from '../../../../../design-system/tokens';
 
 const Container = styled.div`
   display: flex;
