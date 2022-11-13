@@ -7,6 +7,7 @@ import { PrivatePage } from '../../../../../shared/ui/components/PrivatePage';
 import { InputText } from '../../../../../design-system/components/Inputs';
 import { InputGroup } from '../../../../../design-system/components/FormGroup/InputGroup';
 import { CustomLabel } from '../components/CustomLabel';
+import { CustomAvatar } from '../components/CustomAvatar';
 import { ActionHolder, Container, FistSection } from './EditProfile.styles';
 
 export const EditProfile = () => {
@@ -21,7 +22,7 @@ export const EditProfile = () => {
   return (
     <PrivatePage>
       <Container>
-        <Avatar size="large" />
+        {!edit ? <Avatar size="large" /> : <CustomAvatar />}
         <FistSection>
           <Typography variant="paragraphRegular">@{user.name}</Typography>
           {!edit && (
