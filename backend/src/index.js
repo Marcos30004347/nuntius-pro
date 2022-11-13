@@ -4,7 +4,7 @@ import cors from "cors";
 import http from "http";
 import { Server } from "socket.io";
 
-import routes from "./routes.js";
+import { routes } from "./routes.js";
 import { authCheckerMiddleware } from "./middlewares/auth.js";
 
 dotenv.config();
@@ -16,7 +16,7 @@ const io = new Server(server, { cors: { origin: "*" } });
 const port = process.env.PORT || 8000;
 app.use(express.json());
 app.use(cors());
-app.use(/\/((?!auth\/signin).)*/, authCheckerMiddleware)
+app.use(authCheckerMiddleware);
 app.use(routes);
 
 

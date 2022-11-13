@@ -1,6 +1,6 @@
 import { getDBClient } from "../database/init.js";
 
-import { uploadImage } from './images';
+import { uploadImage } from './images.js';
 
 const getUserById = async (userId) => {
   try {
@@ -27,14 +27,14 @@ const editUserProfile = async (access_token, username, about) => {
 
     const { error } = await supabase.auth.admin.updateUserById(
       access_token,
-      { 
+      {
         user_metadata: {
           username: username,
           about: about
         }
       }
     );
-        
+
     if (error) throw error;
 
     console.log(data)
@@ -51,11 +51,13 @@ const editUserProfile = async (access_token, username, about) => {
 
 const uploadUserPicture = async (access_token, base64) => {
   try {
-		const { data: { user } } = await supabase.auth.getUser(access_token);
+    const supabase = getDBClient();
+		const { user, userError } = await supabase.auth.api.getUser(access_token);
+    if (userError) throw userError;
+		const { image_url } = await uploadImage(user.id, base64);
 
-		const { image_url } = uploadImage(user.id, base64);
-		
-    const { error } = await supabase.auth.admin.updateUserById(
+    console.log(user);
+    const { error } = await supabase.auth.api.updateUser(
       access_token,
       {
         user_metadata: {

@@ -1,9 +1,10 @@
 import { getDBClient } from "../database/init.js";
+import { decode } from 'base64-arraybuffer'
 
 const deleteImage = async (name) => {
 	try {
 		const supabase = getDBClient();
-		
+
 		let storage = supabase.storage.from("nuntius-profile-images");
 
 		const { error } = await storage.remove([ "public/" + name ]);
@@ -21,19 +22,16 @@ const uploadImage = async (name, content) => {
 		const supabase = getDBClient();
 
 		let storage = supabase.storage.from("nuntius-profile-images");
-
-		const { data, error } = await storage.upload("public/" + name, content);
-
-    if (error) throw error;
-
-		// let public_url = "https://myytbdnfodsigyixqujf.supabase.co/storage/v1/object/public/nuntius-profile-images/public" + name;
-		
+		const filename = "public/" + name + ".png"
+		const { data, error } = await storage.upload(filename, decode(content), {contentType: "image/png"});
+		if (error) throw error;
+		const { publicURL } = storage.getPublicUrl(filename)
 		return {
-      image_url: data.url,
-    };
-	
+			image_url: publicURL,
+		};
+
 	} catch(e) {
-    throw new Error(`Error: error uploading image "${e}"`);
+    	throw new Error(`Error: error uploading image "${e}"`);
 	}
 }
 
