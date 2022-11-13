@@ -1,19 +1,31 @@
+import styled from 'styled-components';
 import { PrivatePage } from '../../../../../shared/ui/components/PrivatePage';
 import { ParticipantsListDrawer } from '../../components/ParticipantsListDrawer';
 import { useParticipantsList } from '../../../application/hooks/useParticipantsList';
 import { Header } from '../../components/Header';
+import { ChatContainer } from '../../components/ChatContainer';
+// import { Spacing } from '../../../../../design-system/tokens';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
 
 export const Room = () => {
   const { isOpen, toggleDrawer, participants } = useParticipantsList();
 
   return (
     <PrivatePage>
-      <Header name="Nome da sala" toggleDrawer={toggleDrawer} />
-      <ParticipantsListDrawer
-        isOpen={isOpen}
-        close={toggleDrawer}
-        participants={participants}
-      />
+      <Container>
+        <Header name="Nome da sala" toggleDrawer={toggleDrawer} />
+        <ParticipantsListDrawer
+          isOpen={isOpen}
+          close={toggleDrawer}
+          participants={participants}
+        />
+        <ChatContainer />
+      </Container>
     </PrivatePage>
   );
 };
