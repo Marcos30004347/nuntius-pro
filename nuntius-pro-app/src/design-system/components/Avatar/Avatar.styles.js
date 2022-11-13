@@ -8,6 +8,10 @@ export const Container = styled.div`
   justify-content: center;
   border-radius: 100%;
 
+  :hover {
+    cursor: pointer;
+  }
+
   ${sizingMixin}
 `;
 
