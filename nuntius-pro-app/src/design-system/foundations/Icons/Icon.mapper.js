@@ -6,6 +6,12 @@ import { ReactComponent as UserGroupOutline } from './assets/outline/user-group.
 import { ReactComponent as UserGroupSolid } from './assets/solid/user-group.svg';
 import { ReactComponent as PaperAirplaneOutline } from './assets/outline/paper-airplane.svg';
 import { ReactComponent as PaperAirplaneSolid } from './assets/solid/paper-airplane.svg';
+import { ReactComponent as UserOutline } from './assets/outline/user.svg';
+import { ReactComponent as UserSolid } from './assets/solid/user.svg';
+import { ReactComponent as SparklesOutline } from './assets/outline/sparkles.svg';
+import { ReactComponent as SparklesSolid } from './assets/solid/sparkles.svg';
+import { ReactComponent as EnvelopeOutline } from './assets/outline/envelope.svg';
+import { ReactComponent as EnvelopeSolid } from './assets/solid/envelope.svg';
 
 //assets: https://heroicons.com/
 
@@ -13,7 +19,10 @@ export const Icons = {
   Eye: 'Eye',
   EyeSlash: 'EyeSlash',
   UserGroup: 'UserGroup',
-  PaperAirplane: 'PaperAirplane'
+  PaperAirplane: 'PaperAirplane',
+  User: 'User',
+  Sparkles: 'Sparkles',
+  Envelope: 'Envelope'
 };
 
 export const IconsMapper = {
@@ -36,5 +45,20 @@ export const IconsMapper = {
     title: 'Paper airplane icon',
     outline: { icon: PaperAirplaneOutline },
     solid: { icon: PaperAirplaneSolid }
+  },
+  [Icons.User]: {
+    title: 'User icon',
+    outline: { icon: UserOutline },
+    solid: { icon: UserSolid }
+  },
+  [Icons.Sparkles]: {
+    title: 'Sparkles icon',
+    outline: { icon: SparklesOutline },
+    solid: { icon: SparklesSolid }
+  },
+  [Icons.Envelope]: {
+    title: 'Envelope icon',
+    outline: { icon: EnvelopeOutline },
+    solid: { icon: EnvelopeSolid }
   }
 };
