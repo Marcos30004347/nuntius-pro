@@ -6,21 +6,30 @@ import { Icons } from '../../../../../design-system/foundations/Icons';
 
 const Container = styled.div`
   display: flex;
-  align-items: center;
   justify-content: center;
   width: 100%;
   margin-top: ${Sizing.Large};
   gap: ${Sizing.UltraSmall};
 `;
 
+const TitleHolder = styled.div``;
+
 const ButtonHolder = styled.div``;
 
 export const Header = ({ name, toggleDrawer }) => {
   return (
     <Container>
-      <Typography variant="heading3">{name}</Typography>
+      <TitleHolder>
+        <Typography variant="heading3">{name}</Typography>
+        <ButtonHolder>
+          <Button size="small" variant="tertiary">
+            Sair da sala
+          </Button>
+        </ButtonHolder>
+      </TitleHolder>
+
       <ButtonHolder>
-        <Button size="small" icon={Icons.UerGroup} onClick={toggleDrawer} />
+        <Button size="small" icon={Icons.UserGroup} onClick={toggleDrawer} />
       </ButtonHolder>
     </Container>
   );

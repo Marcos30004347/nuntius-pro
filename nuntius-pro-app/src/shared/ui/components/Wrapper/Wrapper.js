@@ -6,6 +6,7 @@ import {
 } from '../../../../design-system/tokens';
 
 export const Wrapper = styled.div`
+  flex: 1;
   display: flex;
   justify-content: space-between;
   padding: ${Spacing.None};

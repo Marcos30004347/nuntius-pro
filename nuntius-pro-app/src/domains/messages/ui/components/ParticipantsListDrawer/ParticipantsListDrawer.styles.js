@@ -8,6 +8,11 @@ export const Container = styled.div`
   gap: ${Spacing.UltraSmall};
 `;
 
+export const ButtonHolder = styled.div`
+  position: absolute;
+  bottom: ${Spacing.SuperSmall};
+`;
+
 export const TitleHolder = styled.div`
   display: flex;
   gap: ${Spacing.UltraSmall};

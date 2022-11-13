@@ -1,0 +1,46 @@
+import styled from 'styled-components';
+import { MessageBox } from 'react-chat-elements';
+import { Button } from '../../../../../design-system/components/Button';
+import { Icons } from '../../../../../design-system/foundations/Icons';
+import { InputText } from '../../../../../design-system/components/Inputs';
+import { Spacing } from '../../../../../design-system/tokens/';
+
+const ChatHolder = styled.div`
+  flex-grow: 1;
+  width: 100%;
+  height: 0px;
+  overflow-y: auto;
+  margin-top: ${Spacing.Micro};
+
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+`;
+
+const ActionHolder = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: ${Spacing.Nano};
+`;
+
+export const ChatContainer = () => {
+  return (
+    <>
+      <ChatHolder>
+        <MessageBox position="left" type="text" title="Luiz" text="Olá" />
+        <MessageBox
+          position="right"
+          type="text"
+          title="Aline"
+          titleColor="#27c241"
+          text="Oii"
+        />
+      </ChatHolder>
+      <ActionHolder>
+        <InputText placeholder="Digite uma mensagem" multiline={true} />
+        <Button style={{ width: '10%' }} icon={Icons.PaperAirplane} />
+      </ActionHolder>
+    </>
+  );
+};
