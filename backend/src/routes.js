@@ -16,7 +16,6 @@ routes.get("/user/get/:userid", getUserByIdHandler);
 routes.post("/user/profile/edit", editUserProfileHandler);
 routes.post("/user/profile/upload-picture", uploadUserProfilePictureHandler);
 
-
-routes.post("/room/participants", listRoomParticipantsHandler);
+routes.get("/room/:roomName/participants", listRoomParticipantsHandler);
 
 export { routes, unauthenticatedRoutes };

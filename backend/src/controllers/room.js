@@ -2,8 +2,10 @@ import { getClientsFromRoom } from '../services/socket.js';
 
 const listRoomParticipantsHandler = async (request, response) => {
   try {
-    const { access_token, data: { roomName} } = request.body;
+    const roomName  = request.params.roomName;
+    const { access_token } = request.body;
 
+    console.log(roomName);
     const rooms = await getClientsFromRoom(roomName);
     const userlist = rooms.map(socket => socket.data.username);
 
