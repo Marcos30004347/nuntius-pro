@@ -21,7 +21,7 @@ export const ParticipantsListDrawer = ({ isOpen, close, participants }) => {
     >
       <Container>
         <TitleHolder>
-          <Icon icon={Icons.UerGroup} variant="solid" />
+          <Icon icon={Icons.UserGroup} variant="solid" />
           <Typography variant="paragraphBold">Pessoas na sala</Typography>
         </TitleHolder>
         {participants.map((participant, index) => {

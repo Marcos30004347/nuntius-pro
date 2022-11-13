@@ -3,12 +3,14 @@ import { MessageBox } from 'react-chat-elements';
 import { Button } from '../../../../../design-system/components/Button';
 import { Icons } from '../../../../../design-system/foundations/Icons';
 import { InputText } from '../../../../../design-system/components/Inputs';
+import { Spacing } from '../../../../../design-system/tokens/';
 
 const ChatHolder = styled.div`
   flex-grow: 1;
   width: 100%;
   height: 0px;
   overflow-y: auto;
+  margin-top: ${Spacing.Micro};
 
   ::-webkit-scrollbar {
     width: 0px;
@@ -19,6 +21,7 @@ const ChatHolder = styled.div`
 const ActionHolder = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: ${Spacing.Nano};
 `;
 
 export const ChatContainer = () => {
@@ -36,7 +39,7 @@ export const ChatContainer = () => {
       </ChatHolder>
       <ActionHolder>
         <InputText placeholder="Type here..." multiline={true} />
-        <Button style={{ width: '10%' }} icon={Icons.Eye} />
+        <Button style={{ width: '10%' }} icon={Icons.PaperAirplane} />
       </ActionHolder>
     </>
   );

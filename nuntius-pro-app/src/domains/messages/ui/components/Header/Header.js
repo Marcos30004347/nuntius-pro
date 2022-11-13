@@ -29,7 +29,7 @@ export const Header = ({ name, toggleDrawer }) => {
       </TitleHolder>
 
       <ButtonHolder>
-        <Button size="small" icon={Icons.UerGroup} onClick={toggleDrawer} />
+        <Button size="small" icon={Icons.UserGroup} onClick={toggleDrawer} />
       </ButtonHolder>
     </Container>
   );
