@@ -1,9 +1,18 @@
 import { Router } from "express";
 import { signinHandler, signupHandler } from "./controllers/auth.js";
+import { editUserProfileHandler, getUserByIdHandler, uploadUserProfilePictureHandler } from "./controllers/user.js";
 
 const routes = Router();
 
+const unauthenticatedRoutes = {
+    "/auth/signup": true,
+    "/auth/signin": true
+};
 routes.post("/auth/signup", signupHandler);
 routes.post("/auth/signin", signinHandler);
 
-export default routes;
+routes.get("/user/get/:userid", getUserByIdHandler);
+routes.post("/user/profile/edit", editUserProfileHandler);
+routes.post("/user/profile/upload-picture", uploadUserProfilePictureHandler);
+
+export { routes, unauthenticatedRoutes };

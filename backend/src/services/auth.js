@@ -1,10 +1,11 @@
 import { getDBClient } from "../database/init.js";
+import { uploadUserPicture } from "./user.js";
 
-const signup = async (email, username, password) => {
+const signup = async (email, username, password, image_base64) => {
   try {
     const supabase = getDBClient();
 
-    const { data, error } = await supabase.auth.signUp({
+    const { user, session, error } = await supabase.auth.signUp({
       email: email,
       password: password,
       options: {
@@ -13,14 +14,16 @@ const signup = async (email, username, password) => {
         },
       },
     });
-		
+
     if (error) throw error;
 
-		console.log(data)
-    return {
-      accessToken: data?.session?.access_token,
-      refreshToken: data?.session?.refresh_token,
-      expiresAt: data?.session?.expires_at,
+		uploadUserPicture(session?.access_token, image_base64);
+
+		return {
+      accessToken: session?.access_token,
+      refreshToken: session?.refresh_token,
+      expiresAt: session?.expires_at,
+      expiresAt: session?.user.id
     };
   } catch (e) {
     console.log(e);
@@ -36,7 +39,7 @@ const signin = async (email, password) => {
       email: email,
       password: password,
     });
-		
+
     if (error) throw error;
 		console.log(data)
     return {
