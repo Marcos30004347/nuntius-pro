@@ -27,7 +27,6 @@ export const useAuthentation = () => {
       navigate(messagesPageRoutes.HOME);
     } catch (e) {
       console.error(e);
-      storageService.saveItem('accessToken', 'aline');
       toast.error('Não foi possível realizar login.');
     }
   };
