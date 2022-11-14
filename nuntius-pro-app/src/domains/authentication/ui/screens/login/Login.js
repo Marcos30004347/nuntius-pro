@@ -1,6 +1,9 @@
 import { Formik } from 'formik';
 import { Button } from '../../../../../design-system/components/Button';
-import { InputText } from '../../../../../design-system/components/Inputs';
+import {
+  InputText,
+  InputPassword
+} from '../../../../../design-system/components/Inputs';
 import { InputGroup } from '../../../../../design-system/components/FormGroup/InputGroup';
 import { Typography } from '../../../../../design-system/components/Typography';
 import { Wrapper } from '../../../../../shared/ui/components/Wrapper';
@@ -45,15 +48,7 @@ export const Login = () => {
               </FormWrapper>
               <FormWrapper>
                 <InputGroup label="Senha" htmlFor="password">
-                  {/* <InputPassword
-                    placeholder="Digite a sua senha"
-                    id="password"
-                    name="password"
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                    value={props.values.password}
-                  /> */}
-                  <InputText
+                  <InputPassword
                     placeholder="Digite a sua senha"
                     id="password"
                     name="password"
