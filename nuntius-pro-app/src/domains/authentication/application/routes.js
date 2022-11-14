@@ -1,3 +1,3 @@
 export const authenticationPageRoutes = {
-  LOGIN: '/'
+  LOGIN: '/login'
 };

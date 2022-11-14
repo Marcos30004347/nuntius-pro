@@ -16,15 +16,11 @@ const signup = async (email, username, password, image_base64) => {
     });
 
     if (error) throw error;
+    user.access_token = session.access_token
+    const updatedUser = await uploadUserPicture(user, image_base64);
+    updatedUser.access_token = session.access_token;
 
-		uploadUserPicture(session?.access_token, image_base64);
-
-		return {
-      accessToken: session?.access_token,
-      refreshToken: session?.refresh_token,
-      expiresAt: session?.expires_at,
-      expiresAt: session?.user.id
-    };
+		return updatedUser;
   } catch (e) {
     console.error(e);
     throw new Error(`error when creting new user with name "${username}"`);
@@ -41,11 +37,8 @@ const signin = async (email, password) => {
     });
 
     if (error) throw error;
-    return {
-      accessToken: data.access_token,
-      refreshToken: data.refresh_token,
-      expiresAt: data.expires_at,
-    };
+    data.user.access_token = data.access_token;
+    return data.user;
   } catch (e) {
     console.error(e);
     throw new Error(`error when creting new user with name "${username}"`);
