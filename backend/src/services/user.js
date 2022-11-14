@@ -28,13 +28,12 @@ const editUserProfile = async (access_token, username, about) => {
   }
 };
 
-const uploadUserPicture = async (user, base64) => {
+const uploadUserPicture = async (receivedUser, base64) => {
   try {
     const supabase = getDBClient();
-		const { image_url } = await uploadImage(user.id, base64);
-
-    const { error } = await supabase.auth.api.updateUser(
-      access_token,
+		const { image_url } = await uploadImage(receivedUser.id, base64);
+    const { user, error } = await supabase.auth.api.updateUser(
+      receivedUser.access_token,
       {
         user_metadata: {
           image_url: image_url,
@@ -42,13 +41,10 @@ const uploadUserPicture = async (user, base64) => {
       }
     );
 
-		if (error) throw error;
-
-    return {
-      image_url: image_url,
-    };
-
+    if (error) throw error;
+    return user;
   } catch (e) {
+    console.error(e);
     throw new Error(`Error: error uploading image "${e}"`);
   }
 };
