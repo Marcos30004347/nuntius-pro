@@ -24,3 +24,9 @@ export const ItemsWrapper = styled.div`
     max-width: ${Container.Large};
   }
 `;
+
+export const ActionableItemsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${Spacing.Quarck};
+`;
