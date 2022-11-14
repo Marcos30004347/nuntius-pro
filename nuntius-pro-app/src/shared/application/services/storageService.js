@@ -5,7 +5,8 @@ const initialStorage = {
     username: null,
     email: null,
     about: null
-  }
+  },
+  accessToken: null
 };
 
 const getAll = () => {
