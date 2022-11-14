@@ -1,19 +1,21 @@
 import { getDBClient } from "../database/init.js";
 import { uploadUserPicture } from "./user.js";
 
-const signup = async (email, username, password, image_base64) => {
+const signup = async (email, username, password, image_base64, about) => {
   try {
     const supabase = getDBClient();
-
-    const { user, session, error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-      options: {
-        data: {
-          name: username,
-        },
+    const { user, session, error } = await supabase.auth.signUp(
+      {
+        password: password,
+        email: email,
       },
-    });
+      {
+        data: {
+          username: username,
+          about: about,
+        },
+      }
+    );
 
     if (error) throw error;
     user.access_token = session.access_token;
