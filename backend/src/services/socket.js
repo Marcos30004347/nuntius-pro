@@ -33,12 +33,11 @@ const registerSocketConn = (server) => {
     socket.on("message", (msg) => onSimpleMessage(socket, msg));
     socket.on("disconnect", onDisconnect);
   });
-
 };
 
 const getClientsFromRoom = async (roomName) => {
   if (!io) throw new Error("Error: The server socket has not been started");
   return io.in(roomName).fetchSockets();
-}
+};
 
 export { registerSocketConn, getClientsFromRoom };
