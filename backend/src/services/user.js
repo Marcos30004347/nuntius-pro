@@ -8,7 +8,6 @@ const getUserById = async (userId) => {
     const { user, error } = await supabase.auth.api.getUserById(userId);
 
     if (error) throw error;
-        console.log(data)
     return {
       username: user.user_metadata.username,
       email: user.email,
@@ -37,8 +36,6 @@ const editUserProfile = async (access_token, username, about) => {
 
     if (error) throw error;
 
-    console.log(data)
-
     return {
       about: about,
       username: username
@@ -56,7 +53,6 @@ const uploadUserPicture = async (access_token, base64) => {
     if (userError) throw userError;
 		const { image_url } = await uploadImage(user.id, base64);
 
-    console.log(user);
     const { error } = await supabase.auth.api.updateUser(
       access_token,
       {

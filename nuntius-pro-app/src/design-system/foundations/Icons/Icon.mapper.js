@@ -12,6 +12,8 @@ import { ReactComponent as SparklesOutline } from './assets/outline/sparkles.svg
 import { ReactComponent as SparklesSolid } from './assets/solid/sparkles.svg';
 import { ReactComponent as EnvelopeOutline } from './assets/outline/envelope.svg';
 import { ReactComponent as EnvelopeSolid } from './assets/solid/envelope.svg';
+import { ReactComponent as LogOutOutline } from './assets/outline/arrow-right-on-rectangle.svg';
+import { ReactComponent as LogOutSolid } from './assets/solid/arrow-right-on-rectangle.svg';
 
 //assets: https://heroicons.com/
 
@@ -22,7 +24,8 @@ export const Icons = {
   PaperAirplane: 'PaperAirplane',
   User: 'User',
   Sparkles: 'Sparkles',
-  Envelope: 'Envelope'
+  Envelope: 'Envelope',
+  LogOut: 'LogOut'
 };
 
 export const IconsMapper = {
@@ -60,5 +63,10 @@ export const IconsMapper = {
     title: 'Envelope icon',
     outline: { icon: EnvelopeOutline },
     solid: { icon: EnvelopeSolid }
+  },
+  [Icons.LogOut]: {
+    title: 'LogOut icon',
+    outline: { icon: LogOutOutline },
+    solid: { icon: LogOutSolid }
   }
 };

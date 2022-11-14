@@ -26,7 +26,7 @@ const signup = async (email, username, password, image_base64) => {
       expiresAt: session?.user.id
     };
   } catch (e) {
-    console.log(e);
+    console.error(e);
     throw new Error(`error when creting new user with name "${username}"`);
   }
 };
@@ -41,14 +41,13 @@ const signin = async (email, password) => {
     });
 
     if (error) throw error;
-		console.log(data)
     return {
       accessToken: data.access_token,
       refreshToken: data.refresh_token,
       expiresAt: data.expires_at,
     };
   } catch (e) {
-    console.log(e);
+    console.error(e);
     throw new Error(`error when creting new user with name "${username}"`);
   }
 };
