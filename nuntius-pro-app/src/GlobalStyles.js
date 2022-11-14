@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import 'react-modern-drawer/dist/index.css';
 import 'react-chat-elements/dist/main.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const GlobalStyles = createGlobalStyle`
   html {

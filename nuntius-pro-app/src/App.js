@@ -1,3 +1,4 @@
+import { ToastContainer } from 'react-toastify';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { GlobalStyles } from './GlobalStyles';
 import { publicRoutes } from './shared/routes/publicRoutes';
@@ -10,6 +11,7 @@ const App = () => {
   return (
     <>
       <GlobalStyles />
+      <ToastContainer />
       <BrowserRouter>
         <Routes>
           {publicRoutes.map((route) => (
