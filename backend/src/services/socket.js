@@ -12,25 +12,25 @@ const createMsg = (value, username) => {
   return message;
 };
 
-const onSimpleMessage = (socket, msg) => {
-  io.to(socket.data.room).emit("message", createMsg(msg, socket.data.username));
+const onSimpleMessage = (socket, msgString) => {
+  io.to(socket.data.room).emit("message", createMsg(msgString, socket.data.username));
 };
 
-const onAnonymousMessage = (socket, msg) => {
-  io.to(socket.data.room).emit("anonymous_message", createMsg(msg, undefined));
+const onAnonymousMessage = (socket, msgString) => {
+  io.to(socket.data.room).emit("anonymous_message", createMsg(msgString, undefined));
 };
 
-const onDirectMessage = (socket, msgData) => {
-  const ids = msgData.sockeIDs;
+const onDirectMessage = (socket, msgDataObj) => {
+  const ids = msgDataObj.sockeIDs;
   for(id of ids) {
-    io.to(id).emit("direct_message", createMsg(msgData.text, socket.data.username));
+    io.to(id).emit("direct_message", createMsg(msgDataObj.text, socket.data.username));
   }
 };
 
-const onDirectAnonymousMessage = (msgData) => {
-  const ids = msgData.sockeIDs;
+const onDirectAnonymousMessage = (msgDataObj) => {
+  const ids = msgDataObj.sockeIDs;
   for(id of ids) {
-    io.to(id).emit("direct_anonymous_message", createMsg(msgData.text, undefined));
+    io.to(id).emit("direct_anonymous_message", createMsg(msgDataObj.text, undefined));
   }
 };
 
@@ -48,10 +48,10 @@ const registerSocketConn = (server) => {
     console.log("user connected: ", socket.data.username);
 
     socket.join(socket.data.room);
-    socket.on("message", (msg) => onSimpleMessage(socket, msg));
-    socket.on("anonymous_message", (msg) => onAnonymousMessage(socket, msg));
-    socket.on("direct_message", (msgData) => onDirectMessage(socket, msgData));
-    socket.on("direct_anonymous_message", (msgData) => onDirectAnonymousMessage(msgData));
+    socket.on("message", (msgString) => onSimpleMessage(socket, msgString));
+    socket.on("anonymous_message", (msgString) => onAnonymousMessage(socket, msgString));
+    socket.on("direct_message", (msgDataObj) => onDirectMessage(socket, msgDataObj));
+    socket.on("direct_anonymous_message", (msgDataObj) => onDirectAnonymousMessage(msgDataObj));
     socket.on("disconnect", onDisconnect);
   });
 
