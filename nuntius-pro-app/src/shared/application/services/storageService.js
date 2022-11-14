@@ -2,8 +2,9 @@ const storageKey = 'nuntius';
 
 const initialStorage = {
   user: {
-    name: null,
-    email: null
+    username: null,
+    email: null,
+    about: null
   }
 };
 
