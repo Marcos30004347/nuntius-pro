@@ -1,8 +1,9 @@
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import { Wrapper } from '../Wrapper';
 import { NavGlobal } from '../../../../design-system/components/Navigation';
 import { messagesPageRoutes } from '../../../../domains/messages/application/routes';
-
-import styled from 'styled-components';
+import { profilePageRoutes } from '../../../../domains/profile/application/routes';
 
 const Container = styled.div`
   display: flex;
@@ -12,9 +13,14 @@ const Container = styled.div`
 `;
 
 export const PrivatePage = ({ children }) => {
+  const history = useNavigate();
+
   return (
     <Container>
-      <NavGlobal homeRoute={messagesPageRoutes.HOME} />
+      <NavGlobal
+        homeRoute={messagesPageRoutes.HOME}
+        onAvatarClick={() => history(profilePageRoutes.EDIT)}
+      />
       <Wrapper>{children}</Wrapper>
     </Container>
   );
