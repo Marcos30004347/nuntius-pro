@@ -6,22 +6,20 @@ const authCheckerMiddleware = async (request, response, next) => {
   try {
     const url = request.baseUrl + request.path;
     if(url in unauthenticatedRoutes){
-      console.log("PASSING");
       next();
       return;
     }
 
-    const supabase = getDBClient()
-    const { access_token, data } = request.body;
-    const { user, error } = await supabase.auth.api.getUser(access_token);
+    const supabase = getDBClient();
+    const accessToken = request.headers.authorization;
+    const { user, error } = await supabase.auth.api.getUser(accessToken);
 
     if (error) throw error;
     request.body.user = user;
 
-    console.log(data)
     next();
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return response.status(400).json(`Invalid access token`);
   }
 }
