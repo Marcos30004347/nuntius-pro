@@ -20,6 +20,33 @@ const onDisconnect = (reason) => {
   console.log("user disconnected: ", reason);
 };
 
+const onConnectToRoom = (socket, room) => {
+  const r = io.sockets.adapter.rooms.get(room);
+  if (!r) {
+    console.log(
+      "Cannot find room. Availabe rooms",
+      io.sockets.adapter.rooms.keys()
+    );
+    socket.disconnect(true);
+    return;
+  }
+
+  socket.join(room);
+  socket.emit("joined_room");
+};
+
+const onCreateRoom = (socket, room) => {
+  const r = io.sockets.adapter.rooms.get(room);
+  if (r) {
+    console.log("Room already exists");
+    socket.disconnect(true);
+    return;
+  }
+
+  socket.join(room);
+  socket.emit("room_created");
+};
+
 const registerSocketConn = (server) => {
   if (!io) io = new Server(server, { cors: { origin: "*" } });
 
@@ -29,7 +56,10 @@ const registerSocketConn = (server) => {
 
     console.log("user connected: ", socket.data.username);
 
-    socket.join(socket.data.room);
+    //socket.join(socket.data.room);
+
+    socket.on("connect_to_room", (room) => onConnectToRoom(socket, room));
+    socket.on("create_room", (room) => onCreateRoom(socket, room));
     socket.on("message", (msg) => onSimpleMessage(socket, msg));
     socket.on("disconnect", onDisconnect);
   });

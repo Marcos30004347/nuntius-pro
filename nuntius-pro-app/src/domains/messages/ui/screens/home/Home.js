@@ -7,7 +7,7 @@ import { Container, FormWrapper } from './Home.styles';
 import { useRooms } from '../../../application/hooks/useParticipantsList';
 
 export const Home = () => {
-  const { joinRoom } = useRooms();
+  const { joinRoom, createRoom } = useRooms();
 
   return (
     <PrivatePage>
@@ -28,7 +28,12 @@ export const Home = () => {
             Entrar
           </Button>
         </FormWrapper>
-        <FormWrapper>
+        <FormWrapper
+          onSubmit={(e) => {
+            e.preventDefault();
+            createRoom(e.target[0].value);
+          }}
+        >
           <InputGroup label="Criar uma sala" htmlFor="criar">
             <InputText placeholder="Nome da sala" name="criar" />
           </InputGroup>

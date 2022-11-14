@@ -28,27 +28,53 @@ export const useRooms = () => {
   //const navigate = useNavigate();
 
   const joinRoom = (roomName) => {
-    try {
-      const username = storageService.getItem('user').username;
-      const socketClient = io(BACKEND_URL, {
-        query: { room: roomName, username: username }
-      });
+    const username = storageService.getItem('user').username;
 
-      socketClient.on('connect', () => {
-        console.log('Web socket connected!');
-        // redirect to chat page with the socket client as props
-        // navigate(messagesPageRoutes.CHAT, { state: { socket: socketClient } });
-        // return socketClient;
-      });
+    // pass access token here
+    const socketClient = io(BACKEND_URL, {
+      query: { room: roomName, username: username }
+    });
 
-      socketClient.on('disconnect', () => {});
-    } catch (e) {
-      console.log('unable to join room');
-      toast.error('Não foi possível se juntar a sala');
-    }
+    socketClient.on('connect', () => {
+      console.log('Web socket connected!');
+      socketClient.emit('connect_to_room', roomName);
+    });
+
+    socketClient.on('joined_room', () => {
+      toast.success('Sala ingressada com sucesso!');
+      // redirect to chat page with the socket client as props
+      // navigate(messagesPageRoutes.CHAT, { state: { socket: socketClient } });
+    });
+
+    socketClient.on('disconnect', (msg) => {
+      toast.error('Não foi possível encontrar a sala.');
+    });
+  };
+
+  const createRoom = (roomName) => {
+    const username = storageService.getItem('user').username;
+    const socketClient = io(BACKEND_URL, {
+      query: { room: roomName, username: username }
+    });
+
+    socketClient.on('connect', () => {
+      console.log('Web socket connected!');
+      socketClient.emit('create_room', roomName);
+    });
+
+    socketClient.on('room_created', () => {
+      toast.success('Sala criada com sucesso!');
+      // redirect to chat page with the socket client as props
+      // navigate(messagesPageRoutes.CHAT, { state: { socket: socketClient } });
+    });
+
+    socketClient.on('disconnect', () => {
+      toast.error('Não foi criar a sala.');
+    });
   };
 
   return {
-    joinRoom
+    joinRoom,
+    createRoom
   };
 };
