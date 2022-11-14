@@ -11,7 +11,7 @@ const ToggleButton = ({ showPassword, onClick }) => {
   );
 };
 
-export const InputPassword = ({ name, error, ...props }) => {
+export const InputPassword = ({ error, ...props }) => {
   const [inputType, setInputType] = React.useState('password');
 
   const handleToggle = () => {
