@@ -6,6 +6,8 @@ import { ReactComponent as UserGroupOutline } from './assets/outline/user-group.
 import { ReactComponent as UserGroupSolid } from './assets/solid/user-group.svg';
 import { ReactComponent as PaperAirplaneOutline } from './assets/outline/paper-airplane.svg';
 import { ReactComponent as PaperAirplaneSolid } from './assets/solid/paper-airplane.svg';
+import { ReactComponent as LogOutOutline } from './assets/outline/arrow-right-on-rectangle.svg';
+import { ReactComponent as LogOutSolid } from './assets/solid/arrow-right-on-rectangle.svg';
 
 //assets: https://heroicons.com/
 
@@ -13,7 +15,8 @@ export const Icons = {
   Eye: 'Eye',
   EyeSlash: 'EyeSlash',
   UserGroup: 'UserGroup',
-  PaperAirplane: 'PaperAirplane'
+  PaperAirplane: 'PaperAirplane',
+  LogOut: 'LogOut'
 };
 
 export const IconsMapper = {
@@ -36,5 +39,10 @@ export const IconsMapper = {
     title: 'Paper airplane icon',
     outline: { icon: PaperAirplaneOutline },
     solid: { icon: PaperAirplaneSolid }
+  },
+  [Icons.LogOut]: {
+    title: 'LogOut icon',
+    outline: { icon: LogOutOutline },
+    solid: { icon: LogOutSolid }
   }
 };

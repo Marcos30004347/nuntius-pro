@@ -20,7 +20,7 @@ const onDisconnect = (reason) => {
   console.log("user disconnected: ", reason);
 };
 
-export const registerSocketConn = (server) => {
+const registerSocketConn = (server) => {
   if (!io) io = new Server(server, { cors: { origin: "*" } });
 
   io.on("connection", (socket) => {
@@ -33,4 +33,12 @@ export const registerSocketConn = (server) => {
     socket.on("message", (msg) => onSimpleMessage(socket, msg));
     socket.on("disconnect", onDisconnect);
   });
+
 };
+
+const getClientsFromRoom = async (roomName) => {
+  if (!io) throw new Error("Error: The server socket has not been started");
+  return io.in(roomName).fetchSockets();
+}
+
+export { registerSocketConn, getClientsFromRoom };

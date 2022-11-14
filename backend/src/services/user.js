@@ -1,5 +1,4 @@
 import { getDBClient } from "../database/init.js";
-
 import { uploadImage } from './images.js';
 
 const editUserProfile = async (access_token, username, about) => {
