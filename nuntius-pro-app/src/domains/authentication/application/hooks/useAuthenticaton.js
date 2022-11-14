@@ -9,22 +9,18 @@ export const useAuthentation = () => {
   const navigate = useNavigate();
 
   const login = async (user) => {
-    console.log(user);
-
     try {
       const { data } = await apiClient.post(
         AuthenticationEndpoints.LOGIN,
         user
       );
-      console.log(data);
 
-      // use data to fill user / access token object and sabe on local storage
       storageService.saveItem('user', {
-        username: 'aline',
-        email: 'email@email.com',
-        about: 'about'
+        username: data.user_metadata.username,
+        email: data.email,
+        about: 'about me ;)'
       });
-      storageService.saveItem('accessToken', '');
+      storageService.saveItem('accessToken', data.access_token);
 
       navigate(messagesPageRoutes.HOME);
     } catch (e) {
