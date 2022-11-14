@@ -2,9 +2,9 @@ import { signup, signin } from "../services/auth.js";
 
 const signupHandler = async (request, response) => {
   try {
-    const { email, username, password, image_base64 } = request.body.data;
+    const { email, username, password, image_base64 } = request.body;
     const resp = await signup(email, username, password, image_base64);
-		
+
     return response.json(resp);
   } catch (e) {
     console.error(e);
@@ -14,7 +14,7 @@ const signupHandler = async (request, response) => {
 
 const signinHandler = async (request, response) => {
   try {
-    const { email, password } = request.body.data;
+    const { email, password } = request.body;
     const resp = await signin(email, password);
     return response.json(resp);
   } catch (e) {

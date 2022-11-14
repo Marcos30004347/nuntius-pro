@@ -10,9 +10,9 @@ const authCheckerMiddleware = async (request, response, next) => {
       return;
     }
 
-    const supabase = getDBClient()
-    const { access_token, data } = request.body;
-    const { user, error } = await supabase.auth.api.getUser(access_token);
+    const supabase = getDBClient();
+    const accessToken = request.headers.authorization;
+    const { user, error } = await supabase.auth.api.getUser(accessToken);
 
     if (error) throw error;
     request.body.user = user;
