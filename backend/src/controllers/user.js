@@ -5,6 +5,7 @@ const getUserHandler = async (request, response) => {
 		const headers = JSON.stringify(request.headers);
 
 		console.log(headers);
+		console.log(request.headers);
 		
     const token = headers.authorization;
 
@@ -19,7 +20,7 @@ const getUserHandler = async (request, response) => {
 
 const editUserProfileHandler = async (request, response) => {
   try {
-    const {  } = request.header;
+    const { username, about } = request.body;
 
     const user = await editUserProfile(request.body.user, username, about);
 
