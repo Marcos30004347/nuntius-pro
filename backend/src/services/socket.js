@@ -12,6 +12,17 @@ const createMsg = (value, username) => {
   return message;
 };
 
+const getSocketIdFromUsernameAndRoom = async (roomName, usernamesMap) => {
+  const userSockets = await getClientsFromRoom(roomName);
+  const socketIDs = []
+  for (sock of userSockets) {
+    if (sock.data.username in usernamesMap) {
+      socketIDs.push(sock.id);
+    }
+  }
+  return socketIDs;
+}
+
 const onSimpleMessage = (socket, msgString) => {
   io.to(socket.data.room).emit("message", createMsg(msgString, socket.data.username));
 };
@@ -21,16 +32,18 @@ const onAnonymousMessage = (socket, msgString) => {
 };
 
 const onDirectMessage = (socket, msgDataObj) => {
-  const ids = msgDataObj.sockeIDs;
-  for(id of ids) {
+  const receiverUsers = Object.fromEntries(msgDataObj.usernames)
+  const socketIDs = getSocketIdFromUsernameAndRoom(socket.data.room, username);
+  for (id of socketIDs) {
     io.to(id).emit("direct_message", createMsg(msgDataObj.text, socket.data.username));
   }
 };
 
 const onDirectAnonymousMessage = (msgDataObj) => {
-  const ids = msgDataObj.sockeIDs;
-  for(id of ids) {
-    io.to(id).emit("direct_anonymous_message", createMsg(msgDataObj.text, undefined));
+  const receiverUsers = Object.fromEntries(msgDataObj.usernames)
+  const socketIDs = getSocketIdFromUsernameAndRoom(socket.data.room, username);
+  for (id of socketIDs) {
+    io.to(id).emit("direct_message", createMsg(msgDataObj.text, undefined));
   }
 };
 
