@@ -9,9 +9,18 @@ import { InputGroup } from '../../../../../design-system/components/FormGroup/In
 import { CustomLabel } from '../components/CustomLabel';
 import { CustomAvatar } from '../components/CustomAvatar';
 import { ActionHolder, Container, FistSection } from './EditProfile.styles';
+import { useGetUser } from '../../../application/hooks/useGetUser';
+
+import { useEffect } from 'react';
 
 export const EditProfile = () => {
   const [edit, setEdit] = React.useState(false);
+  const { getUser } = useGetUser();
+
+  useEffect(async () => {
+    await getUser();
+  }, []);
+
   // get from context
   const user = {
     name: 'Aline',

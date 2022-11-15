@@ -1,6 +1,20 @@
 import { getDBClient } from "../database/init.js";
 import { uploadImage } from './images.js';
 
+const getUserProfile = async (token) => {
+  try {
+    const supabase = getDBClient();
+
+    const { user, error } = await supabase.auth.api.getUser(token);
+
+    if (error) throw error;
+
+		return user;
+  } catch (e) {
+    throw new Error(`Error: error updating user with token "${e}"`);
+  }
+};
+
 const editUserProfile = async (receivedUser, username, about) => {
   try {
     const supabase = getDBClient();
@@ -43,4 +57,4 @@ const uploadUserPicture = async (receivedUser, base64) => {
   }
 };
 
-export { editUserProfile, uploadUserPicture };
+export { editUserProfile, uploadUserPicture, getUserProfile };

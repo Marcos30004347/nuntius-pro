@@ -1,8 +1,25 @@
-import { editUserProfile, uploadUserPicture } from '../services/user.js';
+import { editUserProfile, uploadUserPicture, getUserProfile } from '../services/user.js';
+
+const getUserHandler = async (request, response) => {
+  try {
+		const headers = JSON.stringify(request.headers);
+
+		console.log(headers);
+		
+    const token = headers.authorization;
+
+    const user = await getUserProfile(token);
+
+    return response.json(user);
+  } catch (e) {
+    console.error(e);
+    return response.status(400).json(e);
+  }
+};
 
 const editUserProfileHandler = async (request, response) => {
   try {
-    const { username, about } = request.body;
+    const {  } = request.header;
 
     const user = await editUserProfile(request.body.user, username, about);
 
@@ -24,4 +41,4 @@ const uploadUserProfilePictureHandler = async (request, response) => {
 	}
 }
 
-export { editUserProfileHandler, uploadUserProfilePictureHandler };
+export { editUserProfileHandler, uploadUserProfilePictureHandler, getUserHandler };
