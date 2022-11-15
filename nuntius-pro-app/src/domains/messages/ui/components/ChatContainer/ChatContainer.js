@@ -1,9 +1,11 @@
 import styled from 'styled-components';
-import { MessageBox } from 'react-chat-elements';
+import { useEffect, useState } from 'react';
 import { Button } from '../../../../../design-system/components/Button';
 import { Icons } from '../../../../../design-system/foundations/Icons';
 import { InputText } from '../../../../../design-system/components/Inputs';
 import { Spacing } from '../../../../../design-system/tokens/';
+import { Message } from '../Message/Message';
+import io from 'socket.io-client';
 
 const ChatHolder = styled.div`
   flex-grow: 1;
@@ -24,23 +26,81 @@ const ActionHolder = styled.div`
   margin-bottom: ${Spacing.Nano};
 `;
 
+const BACKEND_URL = 'http://localhost:8000';
+const ROOM = 'MyAwesomeRoom';
+
+// generate a random username just for tests
+const USERNAME = (Math.random() + 1).toString(36).substring(7);
+
 export const ChatContainer = () => {
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState([]);
+  const [socket, setSocket] = useState(undefined);
+
+  useEffect(() => {
+    const socketClient = io(BACKEND_URL, {
+      query: { room: ROOM, username: USERNAME }
+    });
+
+    socketClient.on('connect', () => {
+      console.log('Web socket connected!');
+      setSocket(socketClient);
+    });
+
+    socketClient.on('message', (msg) => {
+      setMessages((prev) => [...prev, msg]);
+    });
+  }, []);
+
   return (
     <>
       <ChatHolder>
-        <MessageBox position="left" type="text" title="Luiz" text="Olá" />
-        <MessageBox
-          position="right"
-          type="text"
-          title="Aline"
-          titleColor="#27c241"
-          text="Oii"
-        />
+        {messages.map((msg, idx) => {
+          if (msg.username == USERNAME)
+            return (
+              <Message
+                key={idx}
+                name={msg.username}
+                position={'right'}
+                text={msg.value.toString()}
+              />
+            );
+          else
+            return (
+              <Message
+                key={idx}
+                name={msg.username}
+                position={'left'}
+                text={msg.value.toString()}
+              />
+            );
+        })}
       </ChatHolder>
       <ActionHolder>
-        <InputText placeholder="Digite uma mensagem" multiline={true} />
-        <Button style={{ width: '10%' }} icon={Icons.PaperAirplane} />
+        <InputText
+          id="message"
+          name="message"
+          placeholder="Digite uma mensagem"
+          multiline={true}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
+        <Button
+          style={{ width: '10%' }}
+          icon={Icons.PaperAirplane}
+          onClick={() => {
+            socket.emit('message', message);
+            setMessage('');
+          }}
+        />
       </ActionHolder>
+      <Button
+        style={{ width: '10%' }}
+        icon={Icons.PaperAirplane}
+        onClick={() => {
+          socket.emit('message', 'teste');
+        }}
+      />
     </>
   );
 };
