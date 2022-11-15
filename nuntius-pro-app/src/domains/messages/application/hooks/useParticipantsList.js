@@ -1,9 +1,11 @@
 import * as React from 'react';
-//import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { io } from 'socket.io-client';
 import { storageService } from '../../../../shared/application/services/storageService';
-//import { messagesPageRoutes } from '../routes';
+import Context from '../contexts/context.js';
+import { messagesPageRoutes } from '../routes';
 
 const BACKEND_URL = 'http://localhost:8000';
 
@@ -25,14 +27,15 @@ export const useParticipantsList = () => {
 };
 
 export const useRooms = () => {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [, setSocketContext] = useContext(Context);
 
   const joinRoom = (roomName) => {
     const username = storageService.getItem('user').username;
 
     // pass access token here
     const socketClient = io(BACKEND_URL, {
-      query: { room: roomName, username: username }
+      query: { username: username }
     });
 
     socketClient.on('connect', () => {
@@ -42,8 +45,8 @@ export const useRooms = () => {
 
     socketClient.on('joined_room', () => {
       toast.success('Sala ingressada com sucesso!');
-      // redirect to chat page with the socket client as props
-      // navigate(messagesPageRoutes.CHAT, { state: { socket: socketClient } });
+      setSocketContext(socketClient);
+      navigate(messagesPageRoutes.CHAT);
     });
 
     socketClient.on('disconnect', (msg) => {
@@ -54,7 +57,7 @@ export const useRooms = () => {
   const createRoom = (roomName) => {
     const username = storageService.getItem('user').username;
     const socketClient = io(BACKEND_URL, {
-      query: { room: roomName, username: username }
+      query: { username: username }
     });
 
     socketClient.on('connect', () => {
@@ -64,8 +67,8 @@ export const useRooms = () => {
 
     socketClient.on('room_created', () => {
       toast.success('Sala criada com sucesso!');
-      // redirect to chat page with the socket client as props
-      // navigate(messagesPageRoutes.CHAT, { state: { socket: socketClient } });
+      setSocketContext(socketClient);
+      navigate(messagesPageRoutes.CHAT);
     });
 
     socketClient.on('disconnect', () => {

@@ -31,6 +31,7 @@ const onConnectToRoom = (socket, room) => {
     return;
   }
 
+  socket.data.room = room;
   socket.join(room);
   socket.emit("joined_room");
 };
@@ -43,6 +44,7 @@ const onCreateRoom = (socket, room) => {
     return;
   }
 
+  socket.data.room = room;
   socket.join(room);
   socket.emit("room_created");
 };
@@ -51,12 +53,9 @@ const registerSocketConn = (server) => {
   if (!io) io = new Server(server, { cors: { origin: "*" } });
 
   io.on("connection", (socket) => {
-    socket.data.room = socket.handshake.query.room;
     socket.data.username = socket.handshake.query.username;
 
     console.log("user connected: ", socket.data.username);
-
-    //socket.join(socket.data.room);
 
     socket.on("connect_to_room", (room) => onConnectToRoom(socket, room));
     socket.on("create_room", (room) => onCreateRoom(socket, room));

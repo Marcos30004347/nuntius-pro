@@ -1,32 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Wrapper } from '../../../../../shared/ui/components/Wrapper';
-import io from 'socket.io-client';
 import { Container } from './Chat1.styles';
-
-const BACKEND_URL = 'http://localhost:8000';
-const ROOM = 'MyAwesomeRoom';
-
-// generate a random username just for tests
-const USERNAME = (Math.random() + 1).toString(36).substring(7);
+import Context from '../../../application/contexts/context.js';
+import { useContext } from 'react';
 
 export const Chat = () => {
-  const [socket, setSocket] = useState(undefined);
+  const [socketContext] = useContext(Context);
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    const socketClient = io(BACKEND_URL, {
-      query: { room: ROOM, username: USERNAME }
-    });
-
-    socketClient.on('connect', () => {
-      console.log('Web socket connected!');
-      setSocket(socketClient);
-    });
-
-    socketClient.on('message', (msg) => {
+    socketContext.on('message', (msg) => {
       setMessages((prev) => [...prev, msg]);
     });
-  }, []);
+  }, [socketContext]);
 
   return (
     <Wrapper style={{ flexDirection: 'column' }}>
@@ -43,7 +29,7 @@ export const Chat = () => {
 
         <button
           onClick={() => {
-            socket.emit('message', 'my message');
+            socketContext.emit('message', 'my message');
           }}
         >
           Click me!
