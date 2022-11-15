@@ -26,6 +26,10 @@ export const Chat = () => {
     socketClient.on('message', (msg) => {
       setMessages((prev) => [...prev, msg]);
     });
+
+    socketClient.on('anonymous_message', (msg) => {
+      setMessages((prev) => [...prev, msg]);
+    });
   }, []);
 
   return (
@@ -47,6 +51,13 @@ export const Chat = () => {
           }}
         >
           Click me!
+        </button>
+        <button
+          onClick={() => {
+            socket.emit('anonymous_message', 'my message');
+          }}
+        >
+          Click me Anonymous!
         </button>
       </Container>
     </Wrapper>
