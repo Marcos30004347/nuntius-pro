@@ -111,12 +111,12 @@ export const messageFunctions = () => {
       anonPrefix = 'anonymous_';
     }
 
-    const regex = '(?:^|\\s)(?:@)(?<username>[a-zA-Z_]\\w+)';
+    const regex = '(?:^|\\s)(?:@)(?<username>[a-zA-Z_]\\w*)';
     const users = [...msg.matchAll(regex)];
 
     if (users.length > 0) {
       socketClient.emit(`direct_${anonPrefix}message`, {
-        users: users,
+        usernames: users.map((user) => user.groups?.username),
         text: msg
       });
     } else {
