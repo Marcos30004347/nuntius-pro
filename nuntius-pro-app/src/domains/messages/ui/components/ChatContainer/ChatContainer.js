@@ -36,6 +36,9 @@ export const ChatContainer = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(undefined);
+  // const [users, setUsers] = useState({});
+
+  const [participants, setParticipants] = useState({});
 
   useEffect(() => {
     const socketClient = io(BACKEND_URL, {
@@ -48,7 +51,37 @@ export const ChatContainer = () => {
     });
 
     socketClient.on('message', (msg) => {
-      setMessages((prev) => [...prev, msg]);
+      const message = Object.assign({ type: 'simple' }, msg);
+      setMessages((prev) => [...prev, message]);
+    });
+
+    socketClient.on('direct_message', (msg) => {
+      const message = Object.assign({ type: 'direct' }, msg);
+      setMessages((prev) => [...prev, message]);
+    });
+
+    socketClient.on('direct_anonymous_message', (msg) => {
+      const message = Object.assign({ type: 'direct_anonymous' }, msg);
+      setMessages((prev) => [...prev, message]);
+    });
+
+    socketClient.on('anonymous_message', (msg) => {
+      const message = Object.assign({ type: 'anonymous' }, msg);
+      setMessages((prev) => [...prev, message]);
+    });
+
+    socketClient.on('add_participant', (msg) => {
+      setParticipants((prev) => {
+        prev[msg.name] = msg.socketID;
+        return prev;
+      });
+    });
+
+    socketClient.on('remove_participant', (msg) => {
+      setParticipants((prev) => {
+        delete prev[msg.name];
+        return prev;
+      });
     });
   }, []);
 
@@ -56,12 +89,14 @@ export const ChatContainer = () => {
     <>
       <ChatHolder>
         {messages.map((msg, idx) => {
-          if (msg.username == USERNAME)
+          console.log(msg);
+          if (msg.username === USERNAME)
             return (
               <Message
                 key={idx}
                 name={msg.username}
                 position={'right'}
+                type={'user'}
                 text={msg.value.toString()}
               />
             );
@@ -71,6 +106,7 @@ export const ChatContainer = () => {
                 key={idx}
                 name={msg.username}
                 position={'left'}
+                type={msg.type}
                 text={msg.value.toString()}
               />
             );
@@ -89,18 +125,30 @@ export const ChatContainer = () => {
           style={{ width: '10%' }}
           icon={Icons.PaperAirplane}
           onClick={() => {
-            socket.emit('message', message);
+            if (message === '') return;
+
+            var anonPrefix = '';
+            if (message[0] === '!') {
+              anonPrefix = 'anonymous_';
+            }
+            const regex = '(?:^|\\s)(?:@)(?<username>[a-zA-Z_]\\w+)';
+            const users = [...message.matchAll(regex)];
+
+            if (users === undefined) {
+              socket.emit('direct_' + anonPrefix + 'message', {
+                socketIDs: users.map(
+                  (user) => participants[user.groups?.username]
+                ),
+                text: message
+              });
+            } else {
+              console.log('aqui');
+              socket.emit(anonPrefix + 'message', message);
+            }
             setMessage('');
           }}
         />
       </ActionHolder>
-      <Button
-        style={{ width: '10%' }}
-        icon={Icons.PaperAirplane}
-        onClick={() => {
-          socket.emit('message', 'teste');
-        }}
-      />
     </>
   );
 };
