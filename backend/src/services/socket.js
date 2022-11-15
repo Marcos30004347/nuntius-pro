@@ -47,7 +47,7 @@ const onDirectAnonymousMessage = (msgDataObj) => {
   }
 };
 
-const onDisconnect = (reason) => {
+const onDisconnect = (socket, reason) => {
   console.log("user disconnected: ", reason);
 };
 
@@ -64,7 +64,7 @@ const registerSocketConn = (server) => {
     socket.on("message", (msgString) => onSimpleMessage(socket, msgString));
     socket.on("anonymous_message", (msgString) => onAnonymousMessage(socket, msgString));
     socket.on("direct_message", (msgDataObj) => onDirectMessage(socket, msgDataObj));
-    socket.on("direct_anonymous_message", (msgDataObj) => onDirectAnonymousMessage(msgDataObj));
+    socket.on("direct_anonymous_message", onDirectAnonymousMessage);
     socket.on("disconnect", onDisconnect);
   });
 
