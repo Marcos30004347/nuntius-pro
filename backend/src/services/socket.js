@@ -12,6 +12,17 @@ const createMsg = (value, username) => {
   return message;
 };
 
+const getSocketIdFromUsernameAndRoom = async (roomName, usernamesMap) => {
+  const userSockets = await getClientsFromRoom(roomName);
+  const socketIDs = []
+  for (sock of userSockets) {
+    if (sock.data.username in usernamesMap) {
+      socketIDs.push(sock.id);
+    }
+  }
+  return socketIDs;
+}
+
 const onSimpleMessage = (socket, msgString) => {
   console.log(socket.data.username);
   io.to(socket.data.room).emit(
@@ -28,8 +39,9 @@ const onAnonymousMessage = (socket, msgString) => {
 };
 
 const onDirectMessage = (socket, msgDataObj) => {
-  const ids = msgDataObj.sockeIDs;
-  for (id of ids) {
+  const receiverUsers = Object.fromEntries(msgDataObj.usernames)
+  const socketIDs = getSocketIdFromUsernameAndRoom(socket.data.room, username);
+  for (id of socketIDs) {
     io.to(id).emit(
       "direct_message",
       createMsg(msgDataObj.text, socket.data.username)
@@ -38,8 +50,9 @@ const onDirectMessage = (socket, msgDataObj) => {
 };
 
 const onDirectAnonymousMessage = (msgDataObj) => {
-  const ids = msgDataObj.sockeIDs;
-  for (id of ids) {
+  const receiverUsers = Object.fromEntries(msgDataObj.usernames)
+  const socketIDs = getSocketIdFromUsernameAndRoom(socket.data.room, username);
+  for (id of socketIDs) {
     io.to(id).emit(
       "direct_anonymous_message",
       createMsg(msgDataObj.text, undefined)
@@ -47,11 +60,12 @@ const onDirectAnonymousMessage = (msgDataObj) => {
   }
 };
 
-const onDisconnect = (reason) => {
+const onDisconnect = (socket, reason) => {
   console.log("user disconnected: ", reason);
+  io.to(socket.data.room).emit("remove_participant", socket.data.username);
 };
 
-const onConnectToRoom = (socket, room) => {
+const onConnectToRoom = async (socket, room) => {
   const r = io.sockets.adapter.rooms.get(room);
   if (!r) {
     console.log(
@@ -64,7 +78,11 @@ const onConnectToRoom = (socket, room) => {
 
   socket.data.room = room;
   socket.join(room);
-  socket.emit("joined_room");
+  const roomSockets = await getClientsFromRoom(room);
+  const userNames = roomSockets.map(socket => socket.data.username);
+
+  socket.emit("joined_room", userNames);
+  io.to(room).emit("add_participant", socket.data.username);
 };
 
 const onCreateRoom = (socket, room) => {
@@ -97,16 +115,14 @@ const registerSocketConn = (server) => {
     socket.on("direct_message", (msgDataObj) =>
       onDirectMessage(socket, msgDataObj)
     );
-    socket.on("direct_anonymous_message", (msgDataObj) =>
-      onDirectAnonymousMessage(msgDataObj)
-    );
-    socket.on("disconnect", onDisconnect);
+    socket.on("direct_anonymous_message", onDirectAnonymousMessage);
+    socket.on("disconnect", (reason) => onDisconnect(socket, reason));
   });
 };
 
 const getClientsFromRoom = async (roomName) => {
   if (!io) throw new Error("Error: The server socket has not been started");
-  return io.in(roomName).fetchSockets();
+  return await io.in(roomName).fetchSockets();
 };
 
 export { registerSocketConn, getClientsFromRoom };
