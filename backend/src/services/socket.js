@@ -12,8 +12,38 @@ const createMsg = (value, username) => {
   return message;
 };
 
-const onSimpleMessage = (socket, msg) => {
-  io.to(socket.data.room).emit("message", createMsg(msg, socket.data.username));
+const onSimpleMessage = (socket, msgString) => {
+  io.to(socket.data.room).emit(
+    "message",
+    createMsg(msgString, socket.data.username)
+  );
+};
+
+const onAnonymousMessage = (socket, msgString) => {
+  io.to(socket.data.room).emit(
+    "anonymous_message",
+    createMsg(msgString, undefined)
+  );
+};
+
+const onDirectMessage = (socket, msgDataObj) => {
+  const ids = msgDataObj.sockeIDs;
+  for (id of ids) {
+    io.to(id).emit(
+      "direct_message",
+      createMsg(msgDataObj.text, socket.data.username)
+    );
+  }
+};
+
+const onDirectAnonymousMessage = (msgDataObj) => {
+  const ids = msgDataObj.sockeIDs;
+  for (id of ids) {
+    io.to(id).emit(
+      "direct_anonymous_message",
+      createMsg(msgDataObj.text, undefined)
+    );
+  }
 };
 
 const onDisconnect = (reason) => {
@@ -60,6 +90,15 @@ const registerSocketConn = (server) => {
     socket.on("connect_to_room", (room) => onConnectToRoom(socket, room));
     socket.on("create_room", (room) => onCreateRoom(socket, room));
     socket.on("message", (msg) => onSimpleMessage(socket, msg));
+    socket.on("anonymous_message", (msgString) =>
+      onAnonymousMessage(socket, msgString)
+    );
+    socket.on("direct_message", (msgDataObj) =>
+      onDirectMessage(socket, msgDataObj)
+    );
+    socket.on("direct_anonymous_message", (msgDataObj) =>
+      onDirectAnonymousMessage(msgDataObj)
+    );
     socket.on("disconnect", onDisconnect);
   });
 };
