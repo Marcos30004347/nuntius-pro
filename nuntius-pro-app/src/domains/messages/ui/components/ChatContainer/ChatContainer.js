@@ -1,44 +1,20 @@
-import styled from 'styled-components';
-import { MessageBox } from 'react-chat-elements';
 import { Button } from '../../../../../design-system/components/Button';
 import { Icons } from '../../../../../design-system/foundations/Icons';
 import { InputText } from '../../../../../design-system/components/Inputs';
-import { Spacing } from '../../../../../design-system/tokens/';
 import { FormWrapper } from '../../screens/home/Home.styles';
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import Context from '../../../application/contexts/context.js';
 import { toast } from 'react-toastify';
 import { messagesPageRoutes } from '../../../application/routes';
-
-const ChatHolder = styled.div`
-  flex-grow: 1;
-  height: 0px;
-  overflow-y: auto;
-  margin-top: ${Spacing.Micro};
-
-  ::-webkit-scrollbar {
-    width: 0px;
-    background: transparent;
-  }
-`;
-
-const ActionHolder = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: ${Spacing.Medium};
-  width: 100%;
-`;
-
-const ChatBox = styled.div`
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  width: 80%;
-`;
+import { messageFunctions } from '../../../application/hooks/useParticipantsList';
+import { Message } from '../Message';
+import { storageService } from '../../../../../shared/application/services/storageService';
+import { ActionHolder, ChatBox, ChatHolder } from './ChatContainer.styles';
 
 export const ChatContainer = () => {
   const navigate = useNavigate();
+  const { registerSocketFunctions, sendMsg } = messageFunctions();
   const [socketContext] = useContext(Context);
   const [messages, setMessages] = useState([]);
 
@@ -49,9 +25,7 @@ export const ChatContainer = () => {
       return;
     }
 
-    socketContext.on('message', (msg) => {
-      setMessages((prev) => [...prev, msg]);
-    });
+    registerSocketFunctions(socketContext, setMessages);
   }, [socketContext, navigate]);
 
   return (
@@ -59,12 +33,13 @@ export const ChatContainer = () => {
       <ChatBox>
         <ChatHolder>
           {messages.map((msg, idx) => {
+            const username = storageService.getItem('user').username;
             return (
               <div key={idx} style={{ marginBottom: '15px' }}>
-                <MessageBox
-                  position="left"
-                  type="text"
-                  title={msg.username}
+                <Message
+                  position={msg.username === username ? 'right' : 'left'}
+                  type={msg.type}
+                  name={msg.username}
                   text={msg.value}
                 />
               </div>
@@ -74,7 +49,10 @@ export const ChatContainer = () => {
         <FormWrapper
           onSubmit={(e) => {
             e.preventDefault();
-            socketContext.emit('message', e.target[0].value);
+            let msg = e.target[0].value;
+
+            if (!msg) return;
+            sendMsg(socketContext, msg);
           }}
           style={{ width: '100%' }}
         >

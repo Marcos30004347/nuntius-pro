@@ -81,3 +81,51 @@ export const useRooms = () => {
     createRoom
   };
 };
+
+export const messageFunctions = () => {
+  const registerSocketFunctions = (socketClient, setMessages) => {
+    socketClient.on('message', (msg) => {
+      const message = Object.assign({ type: 'simple' }, msg);
+      setMessages((prev) => [...prev, message]);
+    });
+
+    socketClient.on('direct_message', (msg) => {
+      const message = Object.assign({ type: 'direct' }, msg);
+      setMessages((prev) => [...prev, message]);
+    });
+
+    socketClient.on('direct_anonymous_message', (msg) => {
+      const message = Object.assign({ type: 'direct_anonymous' }, msg);
+      setMessages((prev) => [...prev, message]);
+    });
+
+    socketClient.on('anonymous_message', (msg) => {
+      const message = Object.assign({ type: 'anonymous' }, msg);
+      setMessages((prev) => [...prev, message]);
+    });
+  };
+
+  const sendMsg = (socketClient, msg) => {
+    let anonPrefix = '';
+    if (msg[0] === '!') {
+      anonPrefix = 'anonymous_';
+    }
+
+    const regex = '(?:^|\\s)(?:@)(?<username>[a-zA-Z_]\\w+)';
+    const users = [...msg.matchAll(regex)];
+
+    if (users.length > 0) {
+      socketClient.emit(`direct_${anonPrefix}message`, {
+        users: users,
+        text: msg
+      });
+    } else {
+      socketClient.emit(`${anonPrefix}message`, msg);
+    }
+  };
+
+  return {
+    registerSocketFunctions,
+    sendMsg
+  };
+};

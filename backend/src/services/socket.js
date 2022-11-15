@@ -13,6 +13,7 @@ const createMsg = (value, username) => {
 };
 
 const onSimpleMessage = (socket, msgString) => {
+  console.log(socket.data.username);
   io.to(socket.data.room).emit(
     "message",
     createMsg(msgString, socket.data.username)
