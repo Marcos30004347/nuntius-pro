@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-// import { apiClient } from '../../../../shared/application/api/apiClient';
-// import { AuthenticationEndpoints } from '../constants/AuthenticationEndpoints';
+import { apiClient } from '../../../../shared/application/api/apiClient';
+import { AuthenticationEndpoints } from '../constants/AuthenticationEndpoints';
 import { storageService } from '../../../../shared/application/services/storageService';
 import { messagesPageRoutes } from '../../../messages/application/routes';
 
@@ -10,19 +10,17 @@ export const useAuthentation = () => {
 
   const login = async (user) => {
     try {
-      // const { data } = await apiClient.post(
-      //   AuthenticationEndpoints.LOGIN,
-      //   user
-      // );
-      // console.log(data);
+      const { data } = await apiClient.post(
+        AuthenticationEndpoints.LOGIN,
+        user
+      );
 
-      // use data to fill user / access token object and sabe on local storage
       storageService.saveItem('user', {
-        username: 'aline',
-        email: 'email@email.com',
-        about: 'about'
+        username: data.user_metadata.username,
+        email: data.email,
+        about: 'about me ;)'
       });
-      storageService.saveItem('accessToken', '');
+      storageService.saveItem('accessToken', data.access_token);
 
       navigate(messagesPageRoutes.HOME);
     } catch (e) {
