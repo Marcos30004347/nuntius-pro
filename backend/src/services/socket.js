@@ -15,7 +15,7 @@ const createMsg = (value, username) => {
 const getSocketIdsFromUsernames = async (roomName, usernamesMap) => {
   const userSockets = await getClientsFromRoom(roomName);
   const socketIDs = [];
-  for (sock of userSockets) {
+  for (const sock of userSockets) {
     if (sock.data.username in usernamesMap) {
       socketIDs.push(sock.id);
     }
@@ -24,7 +24,6 @@ const getSocketIdsFromUsernames = async (roomName, usernamesMap) => {
 };
 
 const onSimpleMessage = (socket, msgString) => {
-  console.log(socket.data.username);
   io.to(socket.data.room).emit(
     "message",
     createMsg(msgString, socket.data.username)
@@ -38,10 +37,10 @@ const onAnonymousMessage = (socket, msgString) => {
   );
 };
 
-const onDirectMessage = (socket, msgDataObj) => {
-  const receiverUsers = Object.fromEntries(msgDataObj.usernames);
-  const socketIDs = getSocketIdsFromUsernames(socket.data.room, receiverUsers);
-  for (id of socketIDs) {
+const onDirectMessage = async (socket, msgDataObj) => {
+  const receiverUsers = Object.fromEntries(msgDataObj.usernames.map(user => [user, true]));
+  const socketIDs = await getSocketIdsFromUsernames(socket.data.room, receiverUsers);
+  for (const id of socketIDs) {
     io.to(id).emit(
       "direct_message",
       createMsg(msgDataObj.text, socket.data.username)
@@ -49,10 +48,10 @@ const onDirectMessage = (socket, msgDataObj) => {
   }
 };
 
-const onDirectAnonymousMessage = (msgDataObj) => {
-  const receiverUsers = Object.fromEntries(msgDataObj.usernames);
-  const socketIDs = getSocketIdsFromUsernames(socket.data.room, receiverUsers);
-  for (id of socketIDs) {
+const onDirectAnonymousMessage = async (socket, msgDataObj) => {
+  const receiverUsers = Object.fromEntries(msgDataObj.usernames.map(user => [user, true]));
+  const socketIDs = await getSocketIdsFromUsernames(socket.data.room, receiverUsers);
+  for (const id of socketIDs) {
     io.to(id).emit(
       "direct_anonymous_message",
       createMsg(msgDataObj.text, undefined)
@@ -115,7 +114,7 @@ const registerSocketConn = (server) => {
     socket.on("direct_message", (msgDataObj) =>
       onDirectMessage(socket, msgDataObj)
     );
-    socket.on("direct_anonymous_message", onDirectAnonymousMessage);
+    socket.on("direct_anonymous_message", (msgDataObj) => onDirectAnonymousMessage(socket, msgDataObj));
     socket.on("disconnect", (reason) => onDisconnect(socket, reason));
   });
 };
