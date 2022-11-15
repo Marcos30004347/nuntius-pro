@@ -12,16 +12,16 @@ const createMsg = (value, username) => {
   return message;
 };
 
-const getSocketIdFromUsernameAndRoom = async (roomName, usernamesMap) => {
+const getSocketIdsFromUsernames = async (roomName, usernamesMap) => {
   const userSockets = await getClientsFromRoom(roomName);
-  const socketIDs = []
+  const socketIDs = [];
   for (sock of userSockets) {
     if (sock.data.username in usernamesMap) {
       socketIDs.push(sock.id);
     }
   }
   return socketIDs;
-}
+};
 
 const onSimpleMessage = (socket, msgString) => {
   console.log(socket.data.username);
@@ -39,8 +39,8 @@ const onAnonymousMessage = (socket, msgString) => {
 };
 
 const onDirectMessage = (socket, msgDataObj) => {
-  const receiverUsers = Object.fromEntries(msgDataObj.usernames)
-  const socketIDs = getSocketIdFromUsernameAndRoom(socket.data.room, username);
+  const receiverUsers = Object.fromEntries(msgDataObj.usernames);
+  const socketIDs = getSocketIdsFromUsernames(socket.data.room, receiverUsers);
   for (id of socketIDs) {
     io.to(id).emit(
       "direct_message",
@@ -50,8 +50,8 @@ const onDirectMessage = (socket, msgDataObj) => {
 };
 
 const onDirectAnonymousMessage = (msgDataObj) => {
-  const receiverUsers = Object.fromEntries(msgDataObj.usernames)
-  const socketIDs = getSocketIdFromUsernameAndRoom(socket.data.room, username);
+  const receiverUsers = Object.fromEntries(msgDataObj.usernames);
+  const socketIDs = getSocketIdsFromUsernames(socket.data.room, receiverUsers);
   for (id of socketIDs) {
     io.to(id).emit(
       "direct_anonymous_message",
@@ -79,7 +79,7 @@ const onConnectToRoom = async (socket, room) => {
   socket.data.room = room;
   socket.join(room);
   const roomSockets = await getClientsFromRoom(room);
-  const userNames = roomSockets.map(socket => socket.data.username);
+  const userNames = roomSockets.map((socket) => socket.data.username);
 
   socket.emit("joined_room", userNames);
   io.to(room).emit("add_participant", socket.data.username);
