@@ -1,3 +1,5 @@
 export const authenticationPageRoutes = {
-  LOGIN: '/login'
+  LOGIN: '/login',
+  FORGOTPASSWORD: '/forgotPassword',
+  SIGNUP: '/signUp'
 };
