@@ -46,7 +46,7 @@ export const useRooms = () => {
     socketClient.on('joined_room', () => {
       toast.success('Sala ingressada com sucesso!');
       setSocketContext(socketClient);
-      navigate(messagesPageRoutes.CHAT);
+      navigate(messagesPageRoutes.ROOM);
     });
 
     socketClient.on('disconnect', (msg) => {
@@ -68,7 +68,7 @@ export const useRooms = () => {
     socketClient.on('room_created', () => {
       toast.success('Sala criada com sucesso!');
       setSocketContext(socketClient);
-      navigate(messagesPageRoutes.CHAT);
+      navigate(messagesPageRoutes.ROOM);
     });
 
     socketClient.on('disconnect', () => {
