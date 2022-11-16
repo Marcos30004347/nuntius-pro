@@ -43,7 +43,7 @@ const editUserProfile = async (receivedUser, username, about) => {
 const uploadUserPicture = async (receivedUser, base64) => {
   try {
     const supabase = getDBClient();
-    const { image_url } = await uploadImage(receivedUser.id, base64);
+    const { image_url } = await uploadImage(receivedUser.id + new Date().toISOString(), base64);
     const { user, error } = await supabase.auth.api.updateUser(
       receivedUser.access_token,
       {
