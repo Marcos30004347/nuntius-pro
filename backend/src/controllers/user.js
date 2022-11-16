@@ -1,13 +1,12 @@
-import { editUserProfile, uploadUserPicture, getUserProfile } from '../services/user.js';
+import {
+  editUserProfile,
+  uploadUserPicture,
+  getUserProfile,
+} from "../services/user.js";
 
 const getUserHandler = async (request, response) => {
   try {
-		const headers = JSON.stringify(request.headers);
-
-		console.log(headers);
-		console.log(request.headers);
-		
-    const token = headers.authorization;
+    const token = request.headers.authorization;
 
     const user = await getUserProfile(token);
 
@@ -33,13 +32,17 @@ const editUserProfileHandler = async (request, response) => {
 };
 
 const uploadUserProfilePictureHandler = async (request, response) => {
-	try {
-		const { user, base64 } = request.body;
-		uploadUserPicture(user, base64);
-	} catch(e) {
+  try {
+    const { user, base64 } = request.body;
+    uploadUserPicture(user, base64);
+  } catch (e) {
     console.error(e);
     return response.status(400).json(e);
-	}
-}
+  }
+};
 
-export { editUserProfileHandler, uploadUserProfilePictureHandler, getUserHandler };
+export {
+  editUserProfileHandler,
+  uploadUserProfilePictureHandler,
+  getUserHandler,
+};

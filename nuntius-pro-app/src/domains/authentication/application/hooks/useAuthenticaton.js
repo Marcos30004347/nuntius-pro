@@ -15,8 +15,6 @@ export const useAuthentation = () => {
         user
       );
 
-      console.log(data);
-
       storageService.saveItem('user', {
         username: data.user_metadata.username,
         email: data.email,
