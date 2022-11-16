@@ -7,6 +7,7 @@ const signupHandler = async (request, response) => {
     if (!image_base64) {
       image_base64 = "default";
     }
+
     const resp = await signup(email, username, password, image_base64);
 
     return response.json(resp);

@@ -16,7 +16,7 @@ export const ParticipantsListDrawer = ({ isOpen, close, participants }) => {
       open={isOpen}
       onClose={close}
       direction="right"
-      size="20vw"
+      size="40vw"
       overlayOpacity={0}
     >
       <Container>
