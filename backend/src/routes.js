@@ -10,6 +10,7 @@ const unauthenticatedRoutes = {
     "/auth/signin": true
 };
 
+
 routes.post("/auth/signup", signupHandler);
 routes.post("/auth/signin", signinHandler);
 routes.post("/user/profile/edit", editUserProfileHandler);

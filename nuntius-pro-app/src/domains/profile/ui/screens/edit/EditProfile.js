@@ -9,31 +9,68 @@ import { InputGroup } from '../../../../../design-system/components/FormGroup/In
 import { CustomLabel } from '../components/CustomLabel';
 import { CustomAvatar } from '../components/CustomAvatar';
 import { ActionHolder, Container, FistSection } from './EditProfile.styles';
-import { useGetUser } from '../../../application/hooks/useGetUser';
-
-import { useEffect } from 'react';
+import { storageService } from '../../../../../shared/application/services/storageService';
+import { useUserUpdate } from '../../../application/hooks/useUserUpdate';
 
 export const EditProfile = () => {
+  const user = storageService.getItem('user');
+
   const [edit, setEdit] = React.useState(false);
-  const { getUser } = useGetUser();
+  const [username, setUsername] = React.useState(user.username);
+  const [about, setAbout] = React.useState(user.about);
 
-  useEffect(async () => {
-    await getUser();
-  }, []);
+  const [base64, setBase64] = React.useState(user.image_url);
+  const [displayDataURL, setDisplayDataURL] = React.useState(user.image_url);
 
-  // get from context
-  const user = {
-    name: 'Aline',
-    about: 'When will you realize Vienna waits for you?',
-    email: 'email@email.com'
+  const [wasImageUpdated, setWasImageUpdated] = React.useState(false);
+
+  const { updateUser } = useUserUpdate();
+
+  console.log(user);
+
+  const onImageLoaded = (event) => {
+    const file = event.target.files[0];
+
+    if (file.type && !file.type.startsWith('image/')) {
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.addEventListener('load', (event) => {
+      setWasImageUpdated(true);
+      const imageData = event.target.result;
+
+      setBase64(imageData.replace('data:', '').replace(/^.+,/, ''));
+      setDisplayDataURL(event.target.result);
+    });
+
+    reader.readAsDataURL(file);
+  };
+
+  const onSubmit = () => {
+    const doUpdate = async () => {
+      await updateUser({
+        image_base64: wasImageUpdated ? base64 : undefined,
+        username: username,
+        about: about
+      });
+
+      setEdit(false);
+    };
+    doUpdate();
   };
 
   return (
     <PrivatePage>
       <Container>
-        {!edit ? <Avatar size="large" /> : <CustomAvatar />}
+        {!edit ? (
+          <Avatar src={displayDataURL} size="large" />
+        ) : (
+          <CustomAvatar src={displayDataURL} onImageLoaded={onImageLoaded} />
+        )}
         <FistSection>
-          <Typography variant="paragraphRegular">@{user.name}</Typography>
+          <Typography variant="paragraphRegular">@{user.username}</Typography>
           {!edit && (
             <div>
               <Button
@@ -47,17 +84,29 @@ export const EditProfile = () => {
           )}
         </FistSection>
         {!edit ? (
-          <CustomLabel icon={Icons.User} label="Nome" value={user.name} />
+          <CustomLabel icon={Icons.User} label="Nome" value={username} />
         ) : (
           <InputGroup label="Nome" htmlFor="nome">
-            <InputText name="nome" value={user.name} />
+            <InputText
+              name="nome"
+              value={username}
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+            />
           </InputGroup>
         )}
         {!edit ? (
-          <CustomLabel icon={Icons.Sparkles} label="Sobre" value={user.about} />
+          <CustomLabel icon={Icons.Sparkles} label="Sobre" value={about} />
         ) : (
           <InputGroup label="Sobre" htmlFor="sobre">
-            <InputText name="sobre" value={user.about} />
+            <InputText
+              name="sobre"
+              value={about}
+              onChange={(e) => {
+                setAbout(e.target.value);
+              }}
+            />
           </InputGroup>
         )}
 
@@ -73,7 +122,7 @@ export const EditProfile = () => {
               </Button>
             </div>
             <div>
-              <Button>Salvar</Button>
+              <Button onClick={onSubmit}>Salvar</Button>
             </div>
           </ActionHolder>
         )}

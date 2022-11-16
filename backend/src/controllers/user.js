@@ -2,12 +2,7 @@ import { editUserProfile, uploadUserPicture, getUserProfile } from '../services/
 
 const getUserHandler = async (request, response) => {
   try {
-		const headers = JSON.stringify(request.headers);
-
-		console.log(headers);
-		console.log(request.headers);
-		
-    const token = headers.authorization;
+    const token = request.headers.authorization;
 
     const user = await getUserProfile(token);
 
@@ -20,12 +15,13 @@ const getUserHandler = async (request, response) => {
 
 const editUserProfileHandler = async (request, response) => {
   try {
-    const { username, about } = request.body;
+    const { username, about, image_base64 } = request.body;
 
-    const user = await editUserProfile(request.body.user, username, about);
+    const token = request.headers.authorization;
 
-    user.access_token = request.body.user.access_token;
-    return response.json(userData);
+    const user = await editUserProfile(token, username, about, image_base64);
+
+    return response.json(user);
   } catch (e) {
     console.error(e);
     return response.status(400).json(e);

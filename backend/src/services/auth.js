@@ -18,11 +18,15 @@ const signup = async (email, username, password, image_base64, about) => {
     );
 
     if (error) throw error;
-    user.access_token = session.access_token;
-    const updatedUser = await uploadUserPicture(user, image_base64);
-    updatedUser.access_token = session.access_token;
+
+		user.access_token = session.access_token;
+		
+    const updatedUser = await uploadUserPicture(session.access_token, user, image_base64);
+
+		updatedUser.access_token = session.access_token;
 
     return updatedUser;
+		
   } catch (e) {
     console.error(e);
     throw new Error(`error when creting new user with name "${username}"`);

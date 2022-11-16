@@ -7,9 +7,10 @@ import {
 import { Typography } from '../Typography';
 import { Button } from '../Button';
 import { Icons } from '../../foundations/Icons';
+import { storageService } from '../../../shared/application/services/storageService';
 
 // TODO: add src to Avatar and link to home in the heading
-export const NavGlobal = ({ homeRoute, onLogOut }) => {
+export const NavGlobal = ({ homeRoute, onLogOut, onAvatarClick }) => {
   return (
     <Navigation role="navigation">
       <ItemsWrapper>
@@ -17,7 +18,12 @@ export const NavGlobal = ({ homeRoute, onLogOut }) => {
           <Typography variant="heading2">NUNTIUS</Typography>
         </a>
         <ActionableItemsWrapper>
-          <Avatar size="small" />
+          <Button variant="tertiary" onClick={onAvatarClick}>
+            <Avatar
+              src={storageService.getItem('user').image_url}
+              size="small"
+            />
+          </Button>
           <div>
             <Button
               variant="tertiary"

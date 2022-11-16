@@ -1,18 +1,15 @@
 import { Avatar } from '../../../../../../design-system/components/Avatar';
-import { useImageReader } from '../../../../application/hooks/useImageReader';
 
-export const CustomAvatar = () => {
-  const { readImage, imgUrl } = useImageReader();
-
+export const CustomAvatar = (props) => {
   return (
     <label>
       <input
         type="file"
         accept=".jpg, .jpeg, .png"
         style={{ display: 'none' }}
-        onChange={(event) => readImage(event)}
+        onChange={(event) => props.onImageLoaded(event)}
       />
-      <Avatar size="large" src={imgUrl} />
+      <Avatar size="large" src={props.src} />
     </label>
   );
 };

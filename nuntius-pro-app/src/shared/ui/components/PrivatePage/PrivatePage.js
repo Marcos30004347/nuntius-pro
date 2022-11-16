@@ -13,13 +13,13 @@ const Container = styled.div`
 `;
 
 export const PrivatePage = ({ children }) => {
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <Container>
       <NavGlobal
         homeRoute={messagesPageRoutes.HOME}
-        onAvatarClick={() => history(profilePageRoutes.EDIT)}
+        onAvatarClick={() => navigate(profilePageRoutes.EDIT)}
       />
       <Wrapper>{children}</Wrapper>
     </Container>
