@@ -8,6 +8,7 @@ export const Container = styled.div`
   width: 100%;
   margin-top: ${Spacing.Large};
   gap: ${Spacing.SuperSmall};
+  padding: 20px;
 `;
 
 export const FistSection = styled.div`

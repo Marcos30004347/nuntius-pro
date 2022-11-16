@@ -1,3 +1,4 @@
 export const profilePageRoutes = {
-  EDIT: '/profile/edit'
+  EDIT: '/user/profile/edit',
+  GET: '/user/me'
 };
