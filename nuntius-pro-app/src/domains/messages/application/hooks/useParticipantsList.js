@@ -43,10 +43,10 @@ export const useRooms = () => {
       socketClient.emit('connect_to_room', roomName);
     });
 
-    socketClient.on('joined_room', () => {
+    socketClient.on('joined_room', (users) => {
       toast.success('Sala ingressada com sucesso!');
       setSocketContext(socketClient);
-      navigate(messagesPageRoutes.ROOM);
+      navigate(messagesPageRoutes.ROOM, { state: { users: users } });
     });
 
     socketClient.on('disconnect', (msg) => {
@@ -68,7 +68,7 @@ export const useRooms = () => {
     socketClient.on('room_created', () => {
       toast.success('Sala criada com sucesso!');
       setSocketContext(socketClient);
-      navigate(messagesPageRoutes.ROOM);
+      navigate(messagesPageRoutes.ROOM, { state: { users: [] } });
     });
 
     socketClient.on('disconnect', () => {
@@ -83,7 +83,11 @@ export const useRooms = () => {
 };
 
 export const messageFunctions = () => {
-  const registerSocketFunctions = (socketClient, setMessages) => {
+  const registerSocketFunctions = (
+    socketClient,
+    setMessages,
+    setParticipants
+  ) => {
     socketClient.on('message', (msg) => {
       const message = Object.assign({ type: 'simple' }, msg);
       setMessages((prev) => [...prev, message]);
@@ -102,6 +106,16 @@ export const messageFunctions = () => {
     socketClient.on('anonymous_message', (msg) => {
       const message = Object.assign({ type: 'anonymous' }, msg);
       setMessages((prev) => [...prev, message]);
+    });
+
+    socketClient.on('add_participant', (user) => {
+      setParticipants((prev) => [...prev, user]);
+    });
+
+    socketClient.on('remove_participant', (user) => {
+      setParticipants((prev) => {
+        return prev.filter((curr) => curr !== user);
+      });
     });
   };
 

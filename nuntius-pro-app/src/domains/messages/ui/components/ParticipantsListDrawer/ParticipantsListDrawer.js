@@ -27,7 +27,7 @@ export const ParticipantsListDrawer = ({ isOpen, close, participants }) => {
         {participants.map((participant, index) => {
           return (
             <>
-              <ParticipantItem key={index} name={participant.name} />
+              <ParticipantItem key={index} name={participant} />
               <Divider />
             </>
           );
