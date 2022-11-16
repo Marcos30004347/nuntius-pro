@@ -9,7 +9,11 @@ export const signUpSchema = yup.object().shape({
     .email('Por favor, digite um endereço de email válido.')
     .typeError('Por favor, digite um endereço de email')
     .required(''),
-  password: yup.string().nullable().required(''),
+  password: yup
+    .string()
+    .nullable()
+    .min(6, 'A senha tem que ter no mínimo 6 caracteres')
+    .required(''),
   confirmPassword: yup
     .string()
     .nullable()

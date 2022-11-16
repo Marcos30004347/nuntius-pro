@@ -14,7 +14,7 @@ import { signUpSchema } from '../../../application/validations/singUpSchema';
 // import { CustomAvatar } from '../../../../profile/ui/screens/components/CustomAvatar';
 
 export const SignUp = () => {
-  const { signUp } = useAuthentation();
+  const { signup } = useAuthentation();
   const initialValues = {
     email: '',
     password: '',
@@ -32,7 +32,7 @@ export const SignUp = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={signUpSchema}
-          onSubmit={signUp}
+          onSubmit={signup}
           validateOnMount
         >
           {(props) => (
@@ -91,6 +91,9 @@ export const SignUp = () => {
                       props.touched.password && Boolean(props.errors.password)
                     }
                   />
+                  {props.errors.password &&
+                    props.touched.password &&
+                    props.errors.password}
                 </InputGroup>
 
                 <InputGroup label="Confirme sua Senha *" htmlFor="">
