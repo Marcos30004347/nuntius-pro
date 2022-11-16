@@ -16,3 +16,11 @@ export const FormWrapper = styled.div`
   width: 60%;
   gap: ${Spacing.Micro};
 `;
+
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: inherit;
+  gap: inherit;
+`;
