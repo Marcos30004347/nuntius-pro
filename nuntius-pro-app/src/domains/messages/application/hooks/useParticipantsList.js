@@ -5,7 +5,7 @@ import { io } from 'socket.io-client';
 import { storageService } from '../../../../shared/application/services/storageService';
 import { messagesPageRoutes } from '../routes';
 
-const BACKEND_URL = 'http://localhost:8000';
+const BACKEND_URL = 'https://nuntiusback.herokuapp.com/';
 
 export const useParticipantsList = () => {
   const [isOpen, setIsOpen] = React.useState(false);
