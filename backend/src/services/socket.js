@@ -1,5 +1,3 @@
-import { Server } from "socket.io";
-
 var io = undefined;
 
 const createMsg = (value, username) => {
@@ -98,7 +96,7 @@ const onCreateRoom = (socket, room) => {
 };
 
 const registerSocketConn = (server) => {
-  if (!io) io = new Server(server, { cors: { origin: "*" } });
+  if (!io) io = server;
 
   io.on("connection", (socket) => {
     socket.data.username = socket.handshake.query.username;
