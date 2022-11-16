@@ -10,7 +10,7 @@ export const Container = styled.div`
   gap: ${Spacing.SuperSmall};
 `;
 
-export const FormWrapper = styled.div`
+export const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
   width: 60%;
