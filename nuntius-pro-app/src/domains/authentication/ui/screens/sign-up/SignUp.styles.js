@@ -10,9 +10,17 @@ export const Container = styled.div`
   gap: ${Spacing.SuperSmall};
 `;
 
-export const FormWrapper = styled.form`
+export const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 60%;
   gap: ${Spacing.Micro};
+`;
+
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: inherit;
+  gap: inherit;
 `;
