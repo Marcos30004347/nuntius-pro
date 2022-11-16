@@ -20,7 +20,7 @@ app.use(routes);
 
 const server = http.createServer(app);
 const socketIO = new Server(server, { cors: { origin: "*" } });
-registerSocketConn(server);
+registerSocketConn(socketIO);
 
 const port = process.env.PORT || 8000;
 
