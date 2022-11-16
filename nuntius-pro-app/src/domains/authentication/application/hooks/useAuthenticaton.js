@@ -18,8 +18,10 @@ export const useAuthentation = () => {
       storageService.saveItem('user', {
         username: data.user_metadata.username,
         email: data.email,
-        about: 'about me ;)'
+        about: data.user_metadata.about,
+        image_url: data.user_metadata.image_url
       });
+
       storageService.saveItem('accessToken', data.access_token);
 
       navigate(messagesPageRoutes.HOME);

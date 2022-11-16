@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { BoxShadow, Container, Breakpoints, Spacing } from '../../tokens';
 
-export const Navigation = styled.nav`
+export const Navigation = styled.div`
+  background-color: white;
   display: flex;
   top: 0;
   left: 0;
