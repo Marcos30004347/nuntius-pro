@@ -2,7 +2,7 @@ import axios from 'axios';
 import { storageService } from '../services/storageService';
 
 export const apiClient = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: 'https://nuntiusback.herokuapp.com',
   timeout: 20000,
   headers: { 'Content-Type': 'application/json' }
 });
