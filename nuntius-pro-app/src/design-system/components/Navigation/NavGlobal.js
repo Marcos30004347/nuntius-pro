@@ -9,7 +9,7 @@ import { Button } from '../Button';
 import { Icons } from '../../foundations/Icons';
 
 // TODO: add src to Avatar and link to home in the heading
-export const NavGlobal = ({ homeRoute, onLogOut }) => {
+export const NavGlobal = ({ homeRoute, onLogOut, onAvatarClick }) => {
   return (
     <Navigation role="navigation">
       <ItemsWrapper>
@@ -17,7 +17,7 @@ export const NavGlobal = ({ homeRoute, onLogOut }) => {
           <Typography variant="heading2">NUNTIUS</Typography>
         </a>
         <ActionableItemsWrapper>
-          <Avatar size="small" />
+          <Avatar size="small" onClick={onAvatarClick} />
           <div>
             <Button
               variant="tertiary"

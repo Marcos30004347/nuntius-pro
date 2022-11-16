@@ -2,31 +2,13 @@ import { Button } from '../../../../../design-system/components/Button';
 import { Icons } from '../../../../../design-system/foundations/Icons';
 import { InputText } from '../../../../../design-system/components/Inputs';
 import { FormWrapper } from '../../screens/home/Home.styles';
-import { useNavigate } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
-import Context from '../../../application/contexts/context.js';
-import { toast } from 'react-toastify';
-import { messagesPageRoutes } from '../../../application/routes';
 import { messageFunctions } from '../../../application/hooks/useParticipantsList';
 import { Message } from '../Message';
 import { storageService } from '../../../../../shared/application/services/storageService';
 import { ActionHolder, ChatBox, ChatHolder } from './ChatContainer.styles';
 
-export const ChatContainer = () => {
-  const navigate = useNavigate();
-  const { registerSocketFunctions, sendMsg } = messageFunctions();
-  const [socketContext] = useContext(Context);
-  const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
-    if (!socketContext) {
-      toast.error('Entre em uma sala');
-      navigate(messagesPageRoutes.HOME);
-      return;
-    }
-
-    registerSocketFunctions(socketContext, setMessages);
-  }, [socketContext, navigate]);
+export const ChatContainer = ({ messages, socketContext }) => {
+  const { sendMsg } = messageFunctions();
 
   return (
     <>

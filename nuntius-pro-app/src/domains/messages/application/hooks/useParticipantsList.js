@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { io } from 'socket.io-client';
 import { storageService } from '../../../../shared/application/services/storageService';
-import Context from '../contexts/context.js';
 import { messagesPageRoutes } from '../routes';
 
-const BACKEND_URL = 'http://localhost:8000';
+const BACKEND_URL = 'https://nuntiusback.herokuapp.com/';
 
 export const useParticipantsList = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -28,7 +26,6 @@ export const useParticipantsList = () => {
 
 export const useRooms = () => {
   const navigate = useNavigate();
-  const [, setSocketContext] = useContext(Context);
 
   const joinRoom = (roomName) => {
     const username = storageService.getItem('user').username;
@@ -43,10 +40,10 @@ export const useRooms = () => {
       socketClient.emit('connect_to_room', roomName);
     });
 
-    socketClient.on('joined_room', () => {
+    socketClient.on('joined_room', (users) => {
       toast.success('Sala ingressada com sucesso!');
-      setSocketContext(socketClient);
-      navigate(messagesPageRoutes.ROOM);
+      storageService.saveItem('room', roomName);
+      navigate(messagesPageRoutes.ROOM, { state: { users: users } });
     });
 
     socketClient.on('disconnect', (msg) => {
@@ -67,8 +64,8 @@ export const useRooms = () => {
 
     socketClient.on('room_created', () => {
       toast.success('Sala criada com sucesso!');
-      setSocketContext(socketClient);
-      navigate(messagesPageRoutes.ROOM);
+      storageService.saveItem('room', roomName);
+      navigate(messagesPageRoutes.ROOM, { state: { users: [] } });
     });
 
     socketClient.on('disconnect', () => {
@@ -83,7 +80,11 @@ export const useRooms = () => {
 };
 
 export const messageFunctions = () => {
-  const registerSocketFunctions = (socketClient, setMessages) => {
+  const registerSocketFunctions = (
+    socketClient,
+    setMessages,
+    setParticipants
+  ) => {
     socketClient.on('message', (msg) => {
       const message = Object.assign({ type: 'simple' }, msg);
       setMessages((prev) => [...prev, message]);
@@ -103,6 +104,16 @@ export const messageFunctions = () => {
       const message = Object.assign({ type: 'anonymous' }, msg);
       setMessages((prev) => [...prev, message]);
     });
+
+    socketClient.on('add_participant', (user) => {
+      setParticipants((prev) => [...prev, user]);
+    });
+
+    socketClient.on('remove_participant', (user) => {
+      setParticipants((prev) => {
+        return prev.filter((curr) => curr !== user);
+      });
+    });
   };
 
   const sendMsg = (socketClient, msg) => {
@@ -111,12 +122,12 @@ export const messageFunctions = () => {
       anonPrefix = 'anonymous_';
     }
 
-    const regex = '(?:^|\\s)(?:@)(?<username>[a-zA-Z_]\\w+)';
+    const regex = '(?:^|\\s)(?:@)(?<username>[a-zA-Z_]\\w*)';
     const users = [...msg.matchAll(regex)];
 
     if (users.length > 0) {
       socketClient.emit(`direct_${anonPrefix}message`, {
-        users: users,
+        usernames: users.map((user) => user.groups?.username),
         text: msg
       });
     } else {
