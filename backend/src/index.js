@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import http from "http";
+import { Server } from "socket.io";
 import bodyParser from 'body-parser';
 
 import { routes } from "./routes.js";
@@ -18,7 +19,7 @@ app.use(authCheckerMiddleware);
 app.use(routes);
 
 const server = http.createServer(app);
-
+const socketIO = new Server(server, { cors: { origin: "*" } });
 registerSocketConn(server);
 
 const port = process.env.PORT || 8000;
