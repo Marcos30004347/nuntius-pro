@@ -19,12 +19,12 @@ const getUserProfile = async (token) => {
   }
 };
 
-const editUserProfile = async (receivedUser, username, about) => {
+const editUserProfile = async (token, username, about, base64) => {
   try {
     const supabase = getDBClient();
 
     const { user, error } = await supabase.auth.api.updateUser(
-      receivedUser.access_token,
+      token,
       {
         data: {
           username: username,
@@ -34,18 +34,23 @@ const editUserProfile = async (receivedUser, username, about) => {
     );
 
     if (error) throw error;
-    return user;
+
+	if(base64) {
+		return await uploadUserPicture(token, user.id, base64);
+	}
+
+	return user;
   } catch (e) {
     throw new Error(`Error: error updating user with token "${e}"`);
   }
 };
 
-const uploadUserPicture = async (receivedUser, base64) => {
+const uploadUserPicture = async (token, userId, base64) => {
   try {
     const supabase = getDBClient();
-    const { image_url } = await uploadImage(receivedUser.id, base64);
+    const { image_url } = await uploadImage(userId + new Date().toISOString(), base64);
     const { user, error } = await supabase.auth.api.updateUser(
-      receivedUser.access_token,
+      token,
       {
         data: {
           image_url: image_url,
