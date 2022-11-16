@@ -76,9 +76,22 @@ Wesley Raul Santos Vieira - FullStack development and design
 
 [Figma](https://www.figma.com/file/sVDkQN4y72q4OGmWK71KOU/Nuntius?node-id=2604%3A2264)
 
-## Proxima Sprint
+## Arquitetura Adotada
 
-2. Como usuário, eu quero logar na aplicação.
-3. Como usuário, eu quero criar uma conta.
-4. Como usuário, eu quero entrar numa sala de chat.
-5. Como usuário eu quero mandar uma mensagem de texto.
+Para a implementação a arquitetura escolhida foi a hexagonal por manter uma facilidade a mais de implementação pelos membros do grupo.
+
+1. Portas: São utilizadas para a formatação dos dados para entrada e saída da aplicação.
+   - ResponseInterface <br />
+   ![ResponseInterface](https://user-images.githubusercontent.com/42242383/202282911-3741998e-4cf4-4204-abb5-218297762ba3.png)
+   - StorageInterface <br />
+      ![StorageInterface](https://user-images.githubusercontent.com/42242383/202282121-02fa9567-8c40-40c6-a326-e5261fe3bcfb.png)
+   - AuthInterface <br />
+      ![AuthInterface](https://user-images.githubusercontent.com/42242383/202282392-13e0bf7c-8914-4754-a620-11df7011b26e.png)
+2. Adaptadores: São utilizados para conexão externa ao sistema.
+   - SocketServerInteface <br />
+   ![SocketServerInteface](https://user-images.githubusercontent.com/42242383/202283706-2a49c93d-1610-4046-81bf-61de5c7e90fb.png)
+   - SocketInteface <br />
+      ![SocketInteface](https://user-images.githubusercontent.com/42242383/202283408-65aa26d0-16af-4243-bd09-2db58c155275.png)
+   - DataBaseInterface <br />
+   ![DataBaseInterface](https://user-images.githubusercontent.com/42242383/202283831-25a4afb2-b137-4137-a26f-428a13af5d1d.png)
+
