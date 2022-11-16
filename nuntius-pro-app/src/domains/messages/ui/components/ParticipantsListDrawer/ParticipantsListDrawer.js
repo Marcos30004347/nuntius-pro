@@ -24,12 +24,12 @@ export const ParticipantsListDrawer = ({ isOpen, close, participants }) => {
           <Icon icon={Icons.UserGroup} variant="solid" />
           <Typography variant="paragraphBold">Pessoas na sala</Typography>
         </TitleHolder>
-        {participants.map((participant, index) => {
+        {[...new Set(participants)].map((participant, index) => {
           return (
-            <>
-              <ParticipantItem key={index} name={participant} />
+            <div key={index}>
+              <ParticipantItem name={participant} />
               <Divider />
-            </>
+            </div>
           );
         })}
         <ButtonHolder>
