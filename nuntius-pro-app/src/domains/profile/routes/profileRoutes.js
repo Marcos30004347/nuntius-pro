@@ -1,5 +1,5 @@
 import { profilePageRoutes } from '../application/routes';
-import { EditProfile } from '../ui/screens/edit';
+import { EditProfile } from '../ui/screens/edit/EditProfile';
 
 export const profileRoutes = [
   {
