@@ -23,7 +23,6 @@ jobs:
        uses: cypress-io/github-action@v4.1.0
        with:
          config-file: cypress.config.js
-         record: true
          start: yarn --cwd ./nuntius-pro-app run start
          build: yarn --cwd ./nuntius-pro-app run build
          wait-on: http://localhost:3000
