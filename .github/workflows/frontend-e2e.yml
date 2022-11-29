@@ -21,6 +21,7 @@ jobs:
       with:
         node-version: 16
         cache: 'yarn'
+        cache-dependency-path: nuntius-pro-app/yarn.lock
     - run: |
         cd nuntius-pro-app 
         yarn install
