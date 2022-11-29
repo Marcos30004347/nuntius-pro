@@ -26,5 +26,3 @@ jobs:
         cd nuntius-pro-app 
         yarn install
         yarn run lint
-        yarn run build
-        yarn run e2e-test
