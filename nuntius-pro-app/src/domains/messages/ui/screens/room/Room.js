@@ -66,7 +66,7 @@ export const Room = () => {
 
     registerSocketFunctions(socketClient, setMessages, setParticipants);
     setSocket(socketClient);
-  }, []);
+  }, [navigate, registerSocketFunctions, room, username]);
 
   return (
     <>
