@@ -26,7 +26,8 @@
     "eject": "react-scripts eject",
     "format": "yarn prettier --write .",
     "lint": "eslint './src/**/*.{js,jsx}' --quiet",
-    "prepare": "cd .. && husky install nuntius-pro-app/.husky"
+    "prepare": "cd .. && husky install nuntius-pro-app/.husky",
+    "e2e-test": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -47,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^11.2.0",
     "eslint": "^8.23.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
