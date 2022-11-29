@@ -20,8 +20,9 @@ jobs:
         npm run start &
 
      - name: Cypress run
-       uses: cypress-io/github-action@v1
+       uses: cypress-io/github-action@v4.1.0
        with:
+         config-file: cypress.config.ts
          record: true
          start: yarn --cwd ./nuntius-pro-app run start
          build: yarn --cwd ./nuntius-pro-app run build
