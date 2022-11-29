@@ -1,9 +1,10 @@
 /* eslint-disable no-undef */
+import { Routes } from "../constants/routes";
 
 describe("Login", () => {
   describe("Quando o usuario acessa a pagina de login", () => {
     it("Renderiza o formulario de login", () => {
-      cy.visit("http://localhost:3000/login");
+      cy.visit(Routes.LOGIN);
 
       cy.get("h1").should("contain.text", "NUNTIUS");
       cy.get("#email")
@@ -21,7 +22,7 @@ describe("Login", () => {
   describe("Quando o usuario preenche o formulario de login", () => {
     describe("E os dados sao invalidos (email fora de formato ou senha nao preenchida)", () => {
       it("Exibe helper text sobre dado invalido e mantem botao de entrar desabilitado", () => {
-        cy.visit("http://localhost:3000/login");
+        cy.visit(Routes.LOGIN);
 
         cy.get("#email").type("email.com").blur();
 
@@ -32,7 +33,7 @@ describe("Login", () => {
 
     describe("E os dados sao validos", () => {
       it("Email e senha refletem o que foi digitado e o botao de entrar fica habilitado", () => {
-        cy.visit("http://localhost:3000/login");
+        cy.visit(Routes.LOGIN);
 
         cy.get("#email").type("email@email.com");
         cy.get("#password").type("senhaforte123");
@@ -45,21 +46,21 @@ describe("Login", () => {
 
   describe("Quando o usuario clica no link para cadastro", () => {
     it("Renderiza o formulario de sign up", () => {
-      cy.visit("http://localhost:3000/login");
+      cy.visit(Routes.LOGIN);
 
       cy.get("#signUp").click();
 
-      cy.url().should("include", "/signUp");
+      cy.url().should("include", Routes.SIGN_UP);
     });
   });
 
   describe("Quando o usuario clica no link para recuprecao de senha", () => {
     it("Renderiza o formulario de recuperar senha", () => {
-      cy.visit("http://localhost:3000/login");
+      cy.visit(Routes.LOGIN);
 
       cy.get("#forgotPassword").click();
 
-      cy.url().should("include", "/forgotPassword");
+      cy.url().should("include", Routes.FORGOT_PASSWORD);
     });
   });
 });
