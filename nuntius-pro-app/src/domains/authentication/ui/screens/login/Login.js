@@ -78,9 +78,13 @@ export const Login = () => {
         </Formik>
         <Typography variant="paragraphRegular" textAlign="center">
           Ainda não possuo cadastro.{' '}
-          <HyperLink text={'Cadastrar'} route={'/signUp'} />
+          <HyperLink id="signUp" text={'Cadastrar'} route={'/signUp'} />
         </Typography>
-        <HyperLink text={'Esqueci a Senha'} route={'/forgotPassword'} />
+        <HyperLink
+          id="forgotPassword"
+          text={'Esqueci a Senha'}
+          route={'/forgotPassword'}
+        />
       </Container>
     </Wrapper>
   );
