@@ -62,8 +62,6 @@ describe("Home", () => {
         cy.get("#1").should("contain.text", "Sala criada com sucesso!");
 
         cy.url().should("include", Routes.ROOM);
-
-        cy.get("button").contains("Sair da sala").click();
       });
     });
   });
