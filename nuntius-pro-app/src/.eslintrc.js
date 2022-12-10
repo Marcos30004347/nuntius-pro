@@ -12,8 +12,8 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/self-closing-comp': 'warn',
     'import/no-named-as-default': 'off',
-    'react-hooks/rules-of-hooks': 'warn', // Checks rules of Hooks
-    'react-hooks/exhaustive-deps': 'warn' // Checks effect dependencies
+    'react-hooks/rules-of-hooks': 'off', // Checks rules of Hooks
+    'react-hooks/exhaustive-deps': 'off' // Checks effect dependencies
   },
   plugins: ['react', 'import', 'jsx-a11y'],
   parserOptions: {
