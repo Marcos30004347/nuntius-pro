@@ -39,8 +39,13 @@ export const ChatContainer = ({ messages, socketContext }) => {
           style={{ width: '100%' }}
         >
           <ActionHolder>
-            <InputText placeholder="Digite uma mensagem" multiline={true} />
+            <InputText
+              name="msg-input"
+              placeholder="Digite uma mensagem"
+              multiline={true}
+            />
             <Button
+              id="send-msg"
               style={{ width: '20%', height: '100%' }}
               icon={Icons.PaperAirplane}
             />

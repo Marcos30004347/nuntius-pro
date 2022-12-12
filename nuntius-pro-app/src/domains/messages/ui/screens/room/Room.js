@@ -14,7 +14,7 @@ import { messagesPageRoutes } from '../../../application/routes';
 import { storageService } from '../../../../../shared/application/services/storageService';
 import { io } from 'socket.io-client';
 
-const BACKEND_URL = 'https://nuntiusback.herokuapp.com/';
+const BACKEND_URL = 'http://localhost:8000/';
 
 const Container = styled.div`
   display: flex;
@@ -66,7 +66,7 @@ export const Room = () => {
 
     registerSocketFunctions(socketClient, setMessages, setParticipants);
     setSocket(socketClient);
-  }, [navigate, registerSocketFunctions, room, username]);
+  }, []);
 
   return (
     <>
