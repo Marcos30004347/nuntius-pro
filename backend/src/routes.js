@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { signinHandler, signupHandler } from "./controllers/auth.js";
 import { editUserProfileHandler, getUserHandler } from "./controllers/user.js";
-import { listRoomParticipantsHandler } from "./controllers/room.js";
 
 const routes = Router();
 
@@ -15,6 +14,5 @@ routes.post("/auth/signin", signinHandler);
 routes.post("/user/profile/edit", editUserProfileHandler);
 
 routes.get("/user/me", getUserHandler);
-routes.get("/room/:roomName/participants", listRoomParticipantsHandler);
 
 export { routes, unauthenticatedRoutes };

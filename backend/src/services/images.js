@@ -24,7 +24,7 @@ const uploadImage = async (name, content) => {
 		let storage = supabase.storage.from("nuntius-profile-images");
 
 		const filename = "public/" + name + ".png"
-		
+
 		const { data, error } = await storage.upload(filename, decode(content), {contentType: "image/png"});
 		if (error) throw error;
 		const { publicURL } = storage.getPublicUrl(filename)
