@@ -1,4 +1,7 @@
+/* istanbul ignore file */
 import { createClient } from "@supabase/supabase-js";
+
+var database = undefined;
 
 function initDB(jwt = "") {
   if (
@@ -30,6 +33,15 @@ function initDB(jwt = "") {
   );
 }
 
-export function getDBClient(jwt = "") {
-  return initDB(jwt);
+const getDBClient = (jwt = "") => {
+  if (database == undefined) {
+    database = initDB(jwt);
+  }
+  return database;
 }
+
+const setDBClient = (newDatabase) => {
+  database = newDatabase;
+}
+
+export { getDBClient, setDBClient };

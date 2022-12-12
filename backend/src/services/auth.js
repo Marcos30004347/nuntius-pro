@@ -19,8 +19,6 @@ const signup = async (email, username, password, image_base64, about) => {
 
     if (error) throw error;
     user.access_token = session.access_token;
-    //const updatedUser = await uploadUserPicture(user, image_base64);
-    //updatedUser.access_token = session.access_token;
 
     return user;
   } catch (e) {
